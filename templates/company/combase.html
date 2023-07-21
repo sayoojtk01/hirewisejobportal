@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="en" class="light scroll-smooth" dir="ltr">
+    <head>
+        <meta charset="UTF-8">
+        <title>HIreWIse - Job Portal</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+        <meta content="Job Listing Landing Template" name="description">
+        <meta content="Job, CV, Career, Resume, Job Portal, Create Job, Post job, tailwind Css" name="keywords">
+        <meta name="author" content="Sayooj">
+        <meta name="website" content="">
+        <meta name="email" content="">
+        <meta name="version" content="1.2.0">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+        <!-- favicon -->
+        <link rel="shortcut icon" href="/static/main/assets/images/favicon.io">
+
+        <!-- Css -->
+        <link href="/static/main/assets/libs/tobii/css/tobii.min.css" rel="stylesheet">
+        <link href="/static/main/assets/libs/choices.js/public/assets/styles/choices.min.css" rel="stylesheet">
+        <!-- Main Css -->
+        <link href="/static/main/assets/libs/%40iconscout/unicons/css/line.css" type="text/css" rel="stylesheet">
+        <link href="/static/main/assets/libs/%40mdi/font/css/materialdesignicons.min.css" rel="stylesheet" type="text/css">
+        <link href="/static/main/assets/css/tailwind.css" rel="stylesheet" type="text/css">
+        <link href="/static/main/assets/css/style.css" rel="stylesheet" type="text/css">
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+
+    </head>
+    
+    <body class="dark:bg-slate-900">
+        <!-- Loader Start -->
+        <!-- <div id="preloader">
+            <div id="status">
+                <div class="spinner">
+                    <div class="double-bounce1"></div>
+                    <div class="double-bounce2"></div>
+                </div>
+            </div>
+        </div> -->
+        <!-- Loader End -->
+        <!-- Start Navbar -->
+        <nav id="topnav" class="defaultscroll is-sticky">
+            <div class="container">
+                <!-- Logo container-->
+                <a class="logo" href="/company/">
+                    <div class="block sm:hidden">
+                        <img src="/static/main/assets/images/logo-icon-40_new.png" class="h-10 inline-block dark:hidden"  alt="">
+                        <img src="/static/main/assets/images/logo-icon-40_new.png" class="h-10 hidden dark:inline-block"  alt="">
+                    </div>
+                    <div class="sm:block hidden">
+                        <img src="/static/main/assets/images/logo-icon-40_new.png" class="h-[24px] inline-block dark:hidden" alt="">
+                        <img src="/static/main/assets/images/logo-icon-40_new.png" class="h-[24px] hidden dark:inline-block"  alt="">
+                    </div>
+                </a>
+                <!-- End Logo container-->
+
+                <!-- Start Mobile Toggle -->
+                <div class="menu-extras">
+                    <div class="menu-item">
+                        <a class="navbar-toggle" id="isToggle" onclick="toggleMenu()">
+                            <div class="lines">
+                                <span></span>
+                                <span></span>
+                                <span></span>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+                <!-- End Mobile Toggle -->
+
+                <!--Login button Start-->
+                <ul class="buy-button list-none mb-0">
+                    <!-- <li class="inline-block mb-0">
+                        <div class="relative top-[3px]">
+                            <i class="uil uil-search text-lg absolute top-[3px] end-3"></i>
+                            <input type="text" class="form-input h-9 pe-10 rounded-3xl sm:w-44 w-36 border-gray-100 dark:border-slate-800 bg-white dark:bg-slate-900" name="s" id="searchItem" placeholder="Search...">
+                        </div>
+                    </li> -->
+                    <li class="inline-block ps-1 mb-0">
+                        <a href="/company_dash/" class="btn btn-icon rounded-full bg-emerald-600 hover:bg-emerald-700 border-emerald-600 hover:border-emerald-700 text-white"><img src="/static/main/assets/images/team/05.jpg" class="rounded-full" alt=""></a>
+                    </li>
+                </ul>
+                <!--Login button End-->
+
+                <div id="navigation">
+                    <!-- Navigation Menu-->
+                    <ul class="navigation-menu justify-end">
+                        <li class="has-submenu parent-menu-item">
+                            <a href="/company/">Home</a>
+                            <!-- <ul class="submenu">
+                                <li><a href="index.html" class="sub-menu-item">Hero One</a></li>
+                                <li><a href="index-two.html" class="sub-menu-item">Hero Two</a></li>
+                                <li><a href="index-three.html" class="sub-menu-item">Hero Three</a></li>
+                                <li><a href="index-four.html" class="sub-menu-item">Hero Four</a></li>
+                                <li><a href="index-five.html" class="sub-menu-item">Hero Five</a></li>
+                                <li><a href="index-six.html" class="sub-menu-item">Hero Six </a></li>
+                                <li><a href="index-seven.html" class="sub-menu-item">Hero Seven </a></li>
+                            </ul> -->
+                        </li>
+                        <!--  -->
+                        <li class="has-submenu parent-menu-item">
+                                <a href="/company_dash/"> Company Detail </a></li>
+                            
+
+                                <!-- <li class="has-submenu parent-parent-menu-item">
+                                <a href="javascript:void(0)">Pages</a><span class="menu-arrow"></span>
+                                <ul class="submenu">
+                                <li><a href="/about/" class="sub-menu-item">About Us</a></li>
+                                <li><a href="/services/" class="sub-menu-item">Services</a></li>
+                                
+                            </ul>
+                        </li> -->
+                
+                        <li><a href="/contact2/" class="sub-menu-item">Contact</a></li>
+                        <li><a href="/logout/" class="sub-menu-item"><button class="btn btn-dark btn-sm">Logout</button></a></li>
+                        <li><a href="/job_post/" class="sub-menu-item"><button class="btn btn-success ml-0 btn-sm">Post A Job</button></a></li>
+
+
+                       
+                    </ul><!--end navigation menu-->
+                </div><!--end navigation-->
+            </div><!--end container-->
+        </nav><!--end header-->
+        <!-- End Navbar -->
+
+
+
+        {% block content %}
+
+
+
+        {% endblock %}
+
+
+
+
+         <!-- Start Footer -->
+         <footer class="relative bg-slate-900 dark:bg-slate-800">
+            <div class="container">
+                <div class="grid grid-cols-1">
+                    <div class="relative py-12">
+                        <!-- Subscribe -->
+                        <div class="relative w-full">
+                            <div class="grid md:grid-cols-12 grid-cols-1 gap-[30px]">
+                                <div class="md:col-span-3">
+                                    <a href="#" class="flex justify-center md:justify-start focus:outline-none">
+                                        <img src="/static/main/assets/images/logo-icon-40_new.png" class="" alt="">
+                                    </a>
+                                </div><!--end col-->
+                        
+                                <div class="md:col-span-9">
+                                    <ul class="list-disc footer-list ltr:md:text-right rtl:md:text-left text-center">
+                                        <li class="inline-block"><a href="/" class="text-gray-300 hover:text-gray-400 duration-500 ease-in-out font-medium me-4">Home</a></li>
+                                        <li class="inline-block mt-[10px] md:mt-0"><a href="/services/" class="text-gray-300 hover:text-gray-400 duration-500 ease-in-out font-medium me-4">How it works</a></li>
+                                        <li class="inline-block mt-[10px] md:mt-0"><a href="" class="text-gray-300 hover:text-gray-400 duration-500 ease-in-out font-medium me-4">Create a job</a></li>
+                                        <li class="inline-block mt-[10px] md:mt-0"><a href="/about/" class="text-gray-300 hover:text-gray-400 duration-500 ease-in-out font-medium me-4">About us</a></li>
+                                        <li class="inline-block mt-[10px] md:mt-0"><a href="/contact/" class="text-gray-300 hover:text-gray-400 duration-500 ease-in-out font-medium">Contact us</a></li>
+                                    </ul><!--end icon-->
+                                </div><!--end col-->
+                            </div><!--end grid-->
+                        </div>
+                        <!-- Subscribe -->
+                    </div>
+                </div>
+            </div><!--end container-->
+
+            <div class="py-[30px] px-0 border-t border-gray-800 dark:border-gray-700">
+                <div class="container text-center">
+                    <div class="grid md:grid-cols-2 items-center gap-6">
+                        <div class="ltr:md:text-left rtl:md:text-right text-center">
+                            <p class="mb-0 text-gray-300 font-medium">© <script>document.write(new Date().getFullYear())</script> HIreWIse Design with <i class="mdi mdi-heart text-red-600"></i> by <a href="/" target="_blank" class="text-reset">Sayooj</a>.</p>
+                        </div>
+
+                        <ul class="list-none ltr:md:text-right rtl:md:text-left text-center">
+                            <li class="inline"><a href="/" target="_blank" class="btn btn-icon btn-sm border-2 border-gray-800 dark:border-gray-700 rounded-md hover:border-emerald-600 dark:hover:border-emerald-600 hover:bg-emerald-600 dark:hover:bg-emerald-600 text-white"><i class="uil uil-shopping-cart align-middle" title="Buy Now"></i></a></li>
+                            <li class="inline"><a href="/" target="_blank" class="btn btn-icon btn-sm border-2 border-gray-800 dark:border-gray-700 rounded-md hover:border-emerald-600 dark:hover:border-emerald-600 hover:bg-emerald-600 dark:hover:bg-emerald-600 text-white"><i class="uil uil-dribbble align-middle" title="dribbble"></i></a></li>
+                            <li class="inline"><a href="/" target="_blank" class="btn btn-icon btn-sm border-2 border-gray-800 dark:border-gray-700 rounded-md hover:border-emerald-600 dark:hover:border-emerald-600 hover:bg-emerald-600 dark:hover:bg-emerald-600 text-white"><i class="uil uil-behance" title="Behance"></i></a></li>
+                            <li class="inline"><a href="/" target="_blank" class="btn btn-icon btn-sm border-2 border-gray-800 dark:border-gray-700 rounded-md hover:border-emerald-600 dark:hover:border-emerald-600 hover:bg-emerald-600 dark:hover:bg-emerald-600 text-white"><i class="uil uil-linkedin" title="Linkedin"></i></a></li>
+                            <li class="inline"><a href="/" target="_blank" class="btn btn-icon btn-sm border-2 border-gray-800 dark:border-gray-700 rounded-md hover:border-emerald-600 dark:hover:border-emerald-600 hover:bg-emerald-600 dark:hover:bg-emerald-600 text-white"><i class="uil uil-facebook-f align-middle" title="facebook"></i></a></li>
+                            <li class="inline"><a href="/" target="_blank" class="btn btn-icon btn-sm border-2 border-gray-800 dark:border-gray-700 rounded-md hover:border-emerald-600 dark:hover:border-emerald-600 hover:bg-emerald-600 dark:hover:bg-emerald-600 text-white"><i class="uil uil-instagram align-middle" title="instagram"></i></a></li>
+                            <li class="inline"><a href="/" target="_blank" class="btn btn-icon btn-sm border-2 border-gray-800 dark:border-gray-700 rounded-md hover:border-emerald-600 dark:hover:border-emerald-600 hover:bg-emerald-600 dark:hover:bg-emerald-600 text-white"><i class="uil uil-twitter align-middle" title="twitter"></i></a></li>
+                            <li class="inline"><a href="/" class="btn btn-icon btn-sm border-2 border-gray-800 dark:border-gray-700 rounded-md hover:border-emerald-600 dark:hover:border-emerald-600 hover:bg-emerald-600 dark:hover:bg-emerald-600 text-white"><i class="uil uil-envelope align-middle" title="email"></i></a></li>
+                        </ul><!--end icon-->
+                    </div><!--end grid-->
+                </div><!--end container-->
+            </div>
+        </footer><!--end footer-->
+        <!-- End Footer -->
+        <!-- Switcher -->
+        <!-- <div class="fixed top-1/4 -left-2 z-50">
+            <span class="relative inline-block rotate-90">
+                <input type="checkbox" class="checkbox opacity-0 absolute" id="chk">
+                <label class="label bg-slate-900 dark:bg-white shadow dark:shadow-gray-800 cursor-pointer rounded-full flex justify-between items-center p-1 w-14 h-8" for="chk">
+                    <i class="uil uil-moon text-[20px] text-yellow-500"></i>
+                    <i class="uil uil-sun text-[20px] text-yellow-500"></i>
+                    <span class="ball bg-white dark:bg-slate-900 rounded-full absolute top-[2px] left-[2px] w-7 h-7"></span>
+                </label>
+            </span>
+        </div> -->
+
+        <!-- <div class="fixed top-1/2 -right-11 z-50 hidden sm:block">
+            <a href="https://1.envato.market/jobstack" target="_blank" class="py-1 px-3 relative inline-block rounded-t-md -rotate-90 bg-white dark:bg-slate-900 shadow-md dark:shadow dark:shadow-gray-800 font-semibold"><i class="mdi mdi-cart-outline me-1"></i> Download</a>
+        </div> -->
+        <!-- Switcher -->
+
+        <!-- LTR & RTL Mode Code -->
+        <!-- <div class="fixed top-[40%] -left-3 z-50">
+            <a href="" id="switchRtl">
+                <span class="py-1 px-3 relative inline-block rounded-b-md -rotate-90 bg-white dark:bg-slate-900 shadow-md dark:shadow dark:shadow-gray-800 font-semibold rtl:block ltr:hidden">LTR</span>
+                <span class="py-1 px-3 relative inline-block rounded-b-md -rotate-90 bg-white dark:bg-slate-900 shadow-md dark:shadow dark:shadow-gray-800 font-semibold ltr:block rtl:hidden">RTL</span>
+            </a>
+        </div> -->
+        <!-- LTR & RTL Mode Code --> 
+
+        <!-- Back to top -->
+        <a href="#" onclick="topFunction()" id="back-to-top" class="back-to-top fixed hidden text-lg rounded-full z-10 bottom-5 end-5 h-9 w-9 text-center bg-emerald-600 text-white justify-center items-center"><i class="uil uil-arrow-up"></i></a>
+        <!-- Back to top -->
+
+        <!-- JAVASCRIPTS -->
+        <script src="/static/main/assets/libs/tobii/js/tobii.min.js"></script>
+        <script src="/static/main/assets/libs/choices.js/public/assets/scripts/choices.min.js"></script>
+        <script src="/static/main/assets/libs/feather-icons/feather.min.js"></script>
+        <script src="/static/main/assets/js/plugins.init.js"></script>
+        <script src="/static/main/assets/js/app.js"></script>
+        <!-- JAVASCRIPTS -->
+    </body>
+</html>
+
+

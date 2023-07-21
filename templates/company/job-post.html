@@ -1,0 +1,176 @@
+﻿{% extends 'company/combase.html' %}
+ {% block content %}
+
+        <!-- Start -->
+        <section class="relative bg-slate-50 dark:bg-slate-800 lg:py-24 py-16">
+            <div class="container">
+                <div class="lg:flex justify-center">
+                    <div class="lg:w-2/3">
+                        <div class="p-6 bg-white dark:bg-slate-900 shadow dark:shadow-gray-700 rounded-md">
+                            <form class="text-left" action="/job_post/" method="post">{% csrf_token %}
+                                <h5 style="color:red;text-align:center;">{{msg}}</h5>
+                                <div class="grid grid-cols-1">
+                                    <h5 class="text-lg font-semibold">Job Details:</h5>
+                                </div>
+
+                                <div class="grid grid-cols-12 gap-4 mt-4">
+                                    <div class="col-span-12 ltr:text-left rtl:text-right">
+                                        <label class="font-semibold" for="RegisterName">Job Title:</label>
+                                        <input id="RegisterName" name="title" type="text" class="form-input border border-slate-100 dark:border-slate-800 mt-1" placeholder="Web Developer">
+                                    </div>
+
+                                    <div class="col-span-12 ltr:text-left rtl:text-right">
+                                        <label for="comments" class="font-semibold">Job Description:</label>
+                                        <textarea name="desc" id="comments" class="form-input border border-slate-100 dark:border-slate-800 mt-1 textarea" placeholder="Write Job Description :"></textarea>
+                                    </div>
+
+                                    <div class="md:col-span-6 col-span-12 ltr:text-left rtl:text-right">
+                                        <label class="font-semibold">Job Categories:</label>
+                                        <select class="form-select form-input border border-slate-100 dark:border-slate-800 block w-full mt-1" name="cat">
+                                            <option value="Web Designer">Web Designer</option>
+                                            <option value="Web Developer">Web Developer</option>
+                                            <option value="UI / UX Desinger">UI / UX Desinger</option>
+                                        </select>
+                                    </div>
+
+                                    <div class="md:col-span-6 col-span-12 ltr:text-left rtl:text-right">
+                                        <label class="font-semibold">Job Type:</label>
+                                        <select class="form-select form-input border border-slate-100 dark:border-slate-800 block w-full mt-1" name="type">
+                                            <option value="Full Time">Full Time</option>
+                                            <option value="Part Time">Part Time</option>
+                                            <option value="Work From Home">Work From Home</option>
+                                            <option value="Remote Job">Remote Job</option>
+                                        </select>
+                                    </div>
+
+                                    <div class="md:col-span-6 col-span-12 ltr:text-left rtl:text-right">
+                                        <label class="font-semibold">Salary:</label>
+                                        <select class="form-select form-input border border-slate-100 dark:border-slate-800 block w-full mt-1" name="salary">
+                                            <option value="Hourly">Hourly</option>
+                                            <option value="Monthly">Monthly</option>
+                                        </select>
+                                    </div>
+
+                                    <div class="md:col-span-3 col-span-12 ltr:text-left rtl:text-right">
+                                        <label class="font-semibold md:invisible md:block hidden">Min:</label>
+                                        <div class="relative mt-1">
+                                            <span class="w-10 h-10 bg-slate-50 dark:bg-slate-800 border border-slate-100 dark:border-slate-800 absolute top-0 start-0 overflow-hidden rounded">
+                                                <i data-feather="" class="w-4 h-4 absolute top-3 start-3"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-currency-rupee" viewBox="0 0 16 16">
+                                                    <path d="M4 3.06h2.726c1.22 0 2.12.575 2.325 1.724H4v1.051h5.051C8.855 7.001 8 7.558 6.788 7.558H4v1.317L8.437 14h2.11L6.095 8.884h.855c2.316-.018 3.465-1.476 3.688-3.049H12V4.784h-1.345c-.08-.778-.357-1.335-.793-1.732H12V2H4v1.06Z"/>
+                                                  </svg></i>
+                                            </span>
+                                            <input type="number" class="form-input border border-slate-100 dark:border-slate-800 ps-12" placeholder="min" name="min">
+                                        </div>
+                                    </div>
+
+                                    <div class="md:col-span-3 col-span-12 ltr:text-left rtl:text-right">
+                                        <label class="font-semibold md:invisible md:block hidden">Max:</label>
+                                        <div class="relative mt-1">
+                                            <span class="w-10 h-10 bg-slate-50 dark:bg-slate-800 border border-slate-100 dark:border-slate-800 absolute top-0 start-0 overflow-hidden rounded">
+                                                <i data-feather="" class="w-4 h-4 absolute top-3 start-3"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-currency-rupee" viewBox="0 0 16 16">
+                                                    <path d="M4 3.06h2.726c1.22 0 2.12.575 2.325 1.724H4v1.051h5.051C8.855 7.001 8 7.558 6.788 7.558H4v1.317L8.437 14h2.11L6.095 8.884h.855c2.316-.018 3.465-1.476 3.688-3.049H12V4.784h-1.345c-.08-.778-.357-1.335-.793-1.732H12V2H4v1.06Z"/>
+                                                  </svg></i>
+                                            </span>
+                                            <input type="number" class="form-input border border-slate-100 dark:border-slate-800 ps-12" placeholder="max" name="max">
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="grid grid-cols-1 mt-8">
+                                    <h5 class="text-lg font-semibold">Skill & Experience:</h5>
+                                </div>
+
+                                <div class="grid grid-cols-12 gap-4 mt-4">
+                                    <!-- <div class="col-span-12 ltr:text-left rtl:text-right">
+                                        <label class="font-semibold" for="Skillname">Skills:</label>
+                                        <input id="Skillname" type="textarea" class="form-input border border-slate-100 dark:border-slate-800 mt-1" placeholder="Web Developer">
+                                    </div> -->
+                                    <div class="col-span-12 ltr:text-left rtl:text-right">
+                                        <label for="comments" class="font-semibold">Skills:</label>
+                                        <textarea name="skills" id="comments" class="form-input border border-slate-100 dark:border-slate-800 mt-1 textarea" placeholder="Write Skills :"></textarea>
+                                    </div>
+
+                                    <div class="md:col-span-6 col-span-12 ltr:text-left rtl:text-right">
+                                        <label class="font-semibold" for="Qualificationname">Qualifications:</label>
+                                        <input name="qualification" id="Qualificationname" type="text" class="form-input border border-slate-100 dark:border-slate-800 mt-1" placeholder="Qualifications">
+                                    </div>
+
+                                    <div class="md:col-span-6 col-span-12 ltr:text-left rtl:text-right">
+                                        <label class="font-semibold" for="Experiencename">Experience:</label>
+                                        <input name="exp" id="Experiencename" type="text" class="form-input border border-slate-100 dark:border-slate-800 mt-1" placeholder="Experience">
+                                    </div>
+
+                                    <div class="col-span-12 ltr:text-left rtl:text-right">
+                                        <label for="comments" class="font-semibold">Requirements:</label>
+                                        <textarea name="require" id="comments" class="form-input border border-slate-100 dark:border-slate-800 mt-1 textarea" placeholder="Requirements :"></textarea>
+                                    </div>
+
+                                    <div class="md:col-span-6 col-span-12 ltr:text-left rtl:text-right">
+                                        <label class="font-semibold" for="Qualificationname">No.of Vaccancy:</label>
+                                        <input id="Qualificationname" name="nos" type="text" class="form-input border border-slate-100 dark:border-slate-800 mt-1" placeholder="No.of Vaccancy :">
+                                    </div>
+
+                                    <div class="md:col-span-6 col-span-12 ltr:text-left rtl:text-right">
+                                        <label class="font-semibold" for="Experiencename">Job Location:</label>
+                                        <input name="loca" id="Experiencename" type="text" class="form-input border border-slate-100 dark:border-slate-800 mt-1" placeholder="Job location :">
+                                    </div>
+
+                                    <!-- <div class="md:col-span-6 col-span-12 ltr:text-left rtl:text-right">
+                                        <label class="font-semibold">Industry:</label>
+                                        <select class="form-select form-input border border-slate-100 dark:border-slate-800 block w-full mt-1">
+                                            <option value="BANK">Banking</option>
+                                            <option value="BIO">Biotechnology</option>
+                                            <option value="AVI">Aviation</option>
+                                        </select>
+                                    </div> -->
+                                <!-- </div>
+
+                                <div class="grid grid-cols-1 mt-8">
+                                    <h5 class="text-lg font-semibold">Address:</h5>
+                                </div>
+
+                                <div class="grid grid-cols-12 gap-4 mt-4">
+                                    <div class="col-span-12 ltr:text-left rtl:text-right">
+                                        <label class="font-semibold" for="Address">Address:</label>
+                                        <input id="Address" type="text" class="form-input border border-slate-100 dark:border-slate-800 mt-1" placeholder="Address">
+                                    </div>
+                                    
+                                    <div class="md:col-span-4 col-span-12 ltr:text-left rtl:text-right">
+                                        <label class="font-semibold">Country:</label>
+                                        <select class="form-select form-input border border-slate-100 dark:border-slate-800 block w-full mt-1">
+                                            <option value="USA">USA</option>
+                                            <option value="CAD">Canada</option>
+                                            <option value="CHINA">China</option>
+                                        </select>
+                                    </div>
+
+                                    <div class="md:col-span-4 col-span-12 ltr:text-left rtl:text-right">
+                                        <label class="font-semibold">State:</label>
+                                        <select class="form-select form-input border border-slate-100 dark:border-slate-800 block w-full mt-1">
+                                            <option value="CAL">California</option>
+                                            <option value="TEX">Texas</option>
+                                            <option value="FLOR">Florida</option>
+                                        </select>
+                                    </div>
+
+                                    <div class="col-span-12 ltr:text-left rtl:text-right">
+                                        <div class="w-full leading-[0] border-0">
+                                            <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d39206.002432144705!2d-95.4973981212445!3d29.709510002925988!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x8640c16de81f3ca5%3A0xf43e0b60ae539ac9!2sGerald+D.+Hines+Waterwall+Park!5e0!3m2!1sen!2sin!4v1566305861440!5m2!1sen!2sin" style="border:0" class="w-full h-[200px] rounded shadow" allowfullscreen=""></iframe>
+                                        </div>
+                                    </div>
+                                </div> -->
+
+                                <div class="grid grid-cols-1  mt-4">
+                                    <div>
+                                        <button type="submit" id="submit" name="send" class="btn rounded-lg bg-emerald-600 hover:bg-emerald-700 border-emerald-600 hover:border-emerald-700 text-white">Post</button>
+                                    </div>
+                                </div>
+                            </form><!--end form-->
+                        </div>
+                    </div>
+                </div><!--end flex-->
+            </div><!--end container-->
+        </section><!--end section-->
+        <!-- End -->
+
+        {% endblock %}

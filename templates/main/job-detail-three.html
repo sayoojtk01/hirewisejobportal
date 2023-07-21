@@ -1,0 +1,267 @@
+﻿{% extends 'main/base.html' %}
+ {% block content %}
+
+        <!-- Start -->
+        {% for x in data %}
+        <section class="bg-slate-50 dark:bg-slate-800 md:py-24 py-16">
+            <div class="container mt-10">
+                <div class="grid md:grid-cols-12 grid-cols-1 gap-[30px]">
+                    <div class="lg:col-span-4 md:col-span-6">
+                        <div class="p-6 shadow dark:shadow-gray-700 rounded-md bg-white dark:bg-slate-900 sticky top-20">
+                            <img src="{{x.cid.logo.url}}" class="rounded-full h-28 w-28 p-4 bg-white dark:bg-slate-900 shadow dark:shadow-gray-700" alt="">
+
+                            <div class="md:ms-4 mt-4">
+                                <h5 class="text-xl font-semibold">{{x.title}}</h5>
+                                <div class="mt-1">
+                                    <span class="text-slate-400 font-medium me-2 inline-block"><i class="uil uil-building text-[18px] text-emerald-600 me-1"></i>{{x.cid.cname}}</span>
+                                    <span class="text-slate-400 font-medium me-2 inline-block"><i class="uil uil-map-marker text-[18px] text-emerald-600 me-1"></i> {{x.cid.location}}</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div><!--end col-->
+
+
+                    
+                    <div class="lg:col-span-8 md:col-span-6">
+                        <h5 class="text-lg font-semibold">Job Information:</h5>
+                        <ul class="list-none mt-5">
+                            <li class="inline-flex items-center py-2 px-4 bg-white me-2 my-1 shadow dark:shadow-gray-700 rounded-md">
+                                <i data-feather="user-check" class="h-5 w-5"></i>
+
+                                <div class="ms-4">
+                                    <p class="font-medium">Employee Type:</p>
+                                    <span class="text-emerald-600 font-medium text-sm">{{x.type}}</span>
+                                </div>
+                            </li>
+
+                            <li class="inline-flex items-center py-2 px-4 bg-white me-2 my-1 shadow dark:shadow-gray-700 rounded-md">
+                                <i data-feather="map-pin" class="h-5 w-5"></i>
+
+                                <div class="ms-4">
+                                    <p class="font-medium">Location:</p>
+                                    <span class="text-emerald-600 font-medium text-sm">{{x.loca}}</span>
+                                </div>
+                            </li>
+
+                            <li class="inline-flex items-center py-2 px-4 bg-white me-2 my-1 shadow dark:shadow-gray-700 rounded-md">
+                                <i data-feather="monitor" class="h-5 w-5"></i>
+
+                                <div class="ms-4">
+                                    <p class="font-medium">Job Type:</p>
+                                    <span class="text-emerald-600 font-medium text-sm">{{x.cat}}</span>
+                                </div>
+                            </li>
+
+                            <li class="inline-flex items-center py-2 px-4 bg-white me-2 my-1 shadow dark:shadow-gray-700 rounded-md">
+                                <i data-feather="briefcase" class="h-5 w-5"></i>
+
+                                <div class="ms-4">
+                                    <p class="font-medium">Experience:</p>
+                                    <span class="text-emerald-600 font-medium text-sm">{{x.exp}}</span>
+                                </div>
+                            </li>
+
+                            <li class="inline-flex items-center py-2 px-4 bg-white me-2 my-1 shadow dark:shadow-gray-700 rounded-md">
+                                <i data-feather="book" class="h-5 w-5"></i>
+
+                                <div class="ms-4">
+                                    <p class="font-medium">Qualifications:</p>
+                                    <span class="text-emerald-600 font-medium text-sm">{{x.qualification}}</span>
+                                </div>
+                            </li>
+
+                            <li class="inline-flex items-center py-2 px-4 bg-white me-2 my-1 shadow dark:shadow-gray-700 rounded-md">
+                                <i data-feather="dollar-sign" class="h-5 w-5"></i>
+
+                                <div class="ms-4">
+                                    <p class="font-medium">Salary:</p>
+                                    <span class="text-emerald-600 font-medium text-sm">₹{{x.min}} - ₹{{x.max}}</span>
+                                </div>
+                            </li>
+
+                            <li class="inline-flex items-center py-2 px-4 bg-white me-2 my-1 shadow dark:shadow-gray-700 rounded-md">
+                                <i data-feather="clock" class="h-5 w-5"></i>
+
+                                <div class="ms-4">
+                                    <p class="font-medium">Date posted:</p>
+                                    <span class="text-emerald-600 font-medium text-sm">28th Feb, 2023</span>
+                                </div>
+                            </li>
+                        </ul>
+
+                        <h5 class="text-lg font-semibold mt-6">Job Description:</h5>
+
+                        <p class="text-slate-400 mt-4">{{x.desc}}</p>
+                        <!-- <p class="text-slate-400 mt-4">This means that Lorem Ipsum cannot accurately represent, for example, German, in which all nouns are capitalized. Thus, Lorem Ipsum has only limited suitability as a visual filler for German texts. If the fill text is intended to illustrate the characteristics of different typefaces.</p>
+                        <p class="text-slate-400 mt-4">It sometimes makes sense to select texts containing the various letters and symbols specific to the output language.</p> -->
+                        
+                        <h5 class="text-lg font-semibold mt-6">Skill & Experience </h5>
+                        <p class="text-slate-400 mt-4">{{x.skills}}</p>
+                        <!-- <ul class="list-none">
+                            <li class="text-slate-400 mt-2"><i class="uil uil-arrow-right text-emerald-600 me-1"></i>Participate in requirements analysis</li>
+                            <li class="text-slate-400 mt-2"><i class="uil uil-arrow-right text-emerald-600 me-1"></i>Write clean, scalable code using C# and .NET frameworks</li>
+                            <li class="text-slate-400 mt-2"><i class="uil uil-arrow-right text-emerald-600 me-1"></i>Test and deploy applications and systems</li>
+                            <li class="text-slate-400 mt-2"><i class="uil uil-arrow-right text-emerald-600 me-1"></i>Revise, update, refactor and debug code</li>
+                            <li class="text-slate-400 mt-2"><i class="uil uil-arrow-right text-emerald-600 me-1"></i>Improve existing software</li>
+                            <li class="text-slate-400 mt-2"><i class="uil uil-arrow-right text-emerald-600 me-1"></i>Develop documentation throughout the software development life cycle (SDLC)</li>
+                            <li class="text-slate-400 mt-2"><i class="uil uil-arrow-right text-emerald-600 me-1"></i>Serve as an expert on applications and provide technical support</li>
+                        </ul> -->
+
+                        <h5 class="text-lg font-semibold mt-6">Requirements: </h5>
+                        <p class="text-slate-400 mt-4">{{x.require}}</p>
+                        <!-- <ul class="list-none">
+                            <li class="text-slate-400 mt-2"><i class="uil uil-arrow-right text-emerald-600 me-1"></i>Proven experience as a .NET Developer or Application Developer</li>
+                            <li class="text-slate-400 mt-2"><i class="uil uil-arrow-right text-emerald-600 me-1"></i>good understanding of SQL and Relational Databases, specifically Microsoft SQL Server.</li>
+                            <li class="text-slate-400 mt-2"><i class="uil uil-arrow-right text-emerald-600 me-1"></i>Experience designing, developing and creating RESTful web services and APIs</li>
+                            <li class="text-slate-400 mt-2"><i class="uil uil-arrow-right text-emerald-600 me-1"></i>Basic know how of Agile process and practices</li>
+                            <li class="text-slate-400 mt-2"><i class="uil uil-arrow-right text-emerald-600 me-1"></i>Good understanding of object-oriented programming.</li>
+                            <li class="text-slate-400 mt-2"><i class="uil uil-arrow-right text-emerald-600 me-1"></i>Good understanding of concurrent programming.</li>
+                            <li class="text-slate-400 mt-2"><i class="uil uil-arrow-right text-emerald-600 me-1"></i>Sound knowledge of application architecture and design.</li>
+                            <li class="text-slate-400 mt-2"><i class="uil uil-arrow-right text-emerald-600 me-1"></i>Excellent problem solving and analytical skills</li>
+                        </ul> -->
+
+                        <div class="mt-5">
+                            <a href="/job_apply/?jobid={{x.id}}" class="btn rounded-md bg-emerald-600 hover:bg-emerald-700 border-emerald-600 hover:border-emerald-700 text-white md:ms-2 w-full md:w-auto">Apply Now</a>
+                        </div>
+                    </div><!--end col-->
+                </div><!--end grid-->
+            </div><!--end container-->
+
+            <div class="container lg:mt-24 mt-16">
+                <div class="grid grid-cols-1 pb-8 text-center">
+                    <h3 class="mb-4 md:text-[26px] md:leading-normal text-2xl leading-normal font-semibold">Related Vacancies</h3>
+
+                    <p class="text-slate-400 dark:text-slate-300 max-w-xl mx-auto">Search all the open positions on the web. Get your own personalized salary estimate. Read reviews on over 30000+ companies worldwide.</p>
+                </div><!--end grid-->
+
+                <div class="grid lg:grid-cols-3 md:grid-cols-2 mt-8 gap-[30px]">
+                    <div class="group shadow dark:shadow-gray-700 p-6 rounded-md bg-white dark:bg-slate-900">
+                        <div class="flex items-center justify-between">
+                            <div class="flex items-center">
+                                <div class="w-14 h-14 flex items-center justify-center bg-white dark:bg-slate-900 shadow dark:shadow-gray-700 rounded-md">
+                                    <img src="/static/main/assets/images/company/facebook-logo.png" class="h-8 w-8" alt="">
+                                </div>
+
+                                <div class="ms-3">
+                                    <a href="employer-detail.html" class="block text-[16px] font-semibold hover:text-emerald-600 transition-all duration-500">Facebook</a>
+                                    <span class="block text-sm text-slate-400">2 days ago</span>
+                                </div>
+                            </div>
+
+                            <span class="bg-emerald-600/10 group-hover:bg-emerald-600 inline-block text-emerald-600 group-hover:text-white text-xs px-2.5 py-0.5 font-semibold rounded-full transition-all duration-500">Full Time</span>
+                        </div>
+
+                        <div class="mt-6">
+                            <a href="job-detail-one.html" class="text-lg hover:text-emerald-600 font-semibold transition-all duration-500">Web Designer / Developer</a>
+                            <h6 class="text-base font-medium"><i class="uil uil-map-marker"></i> Australia</h6>
+                        </div>
+
+                        <div class="mt-6">
+                            <div class="w-full bg-gray-100 dark:bg-gray-800 rounded-full h-[6px]">
+                                <div class="bg-emerald-600 h-[6px] rounded-full" style="width: 55%"></div>
+                            </div>
+                            <div class="mt-2">
+                                <span class="text-slate-400 text-sm"><span class="text-slate-900 dark:text-white font-semibold inline-block">21 applied</span> of 40 vacancy</span>
+                            </div>
+                        </div>
+                    </div><!--end content-->
+
+                    <div class="group shadow dark:shadow-gray-700 p-6 rounded-md bg-white dark:bg-slate-900">
+                        <div class="flex items-center justify-between">
+                            <div class="flex items-center">
+                                <div class="w-14 h-14 flex items-center justify-center bg-white dark:bg-slate-900 shadow dark:shadow-gray-700 rounded-md">
+                                    <img src="/static/main/assets/images/company/google-logo.png" class="h-8 w-8" alt="">
+                                </div>
+
+                                <div class="ms-3">
+                                    <a href="employer-detail.html" class="block text-[16px] font-semibold hover:text-emerald-600 transition-all duration-500">Google</a>
+                                    <span class="block text-sm text-slate-400">2 days ago</span>
+                                </div>
+                            </div>
+
+                            <span class="bg-emerald-600/10 group-hover:bg-emerald-600 inline-block text-emerald-600 group-hover:text-white text-xs px-2.5 py-0.5 font-semibold rounded-full transition-all duration-500">Part Time</span>
+                        </div>
+
+                        <div class="mt-6">
+                            <a href="job-detail-one.html" class="text-lg hover:text-emerald-600 font-semibold transition-all duration-500">Marketing Director</a>
+                            <h6 class="text-base font-medium"><i class="uil uil-map-marker"></i> USA</h6>
+                        </div>
+
+                        <div class="mt-6">
+                            <div class="w-full bg-gray-100 dark:bg-gray-800 rounded-full h-[6px]">
+                                <div class="bg-emerald-600 h-[6px] rounded-full" style="width: 55%"></div>
+                            </div>
+                            <div class="mt-2">
+                                <span class="text-slate-400 text-sm"><span class="text-slate-900 dark:text-white font-semibold inline-block">21 applied</span> of 40 vacancy</span>
+                            </div>
+                        </div>
+                    </div><!--end content-->
+
+                    <div class="group shadow dark:shadow-gray-700 p-6 rounded-md bg-white dark:bg-slate-900">
+                        <div class="flex items-center justify-between">
+                            <div class="flex items-center">
+                                <div class="w-14 h-14 flex items-center justify-center bg-white dark:bg-slate-900 shadow dark:shadow-gray-700 rounded-md">
+                                    <img src="/static/main/assets/images/company/android.png" class="h-8 w-8" alt="">
+                                </div>
+
+                                <div class="ms-3">
+                                    <a href="employer-detail.html" class="block text-[16px] font-semibold hover:text-emerald-600 transition-all duration-500">Android</a>
+                                    <span class="block text-sm text-slate-400">2 days ago</span>
+                                </div>
+                            </div>
+
+                            <span class="bg-emerald-600/10 group-hover:bg-emerald-600 inline-block text-emerald-600 group-hover:text-white text-xs px-2.5 py-0.5 font-semibold rounded-full transition-all duration-500">Remote</span>
+                        </div>
+
+                        <div class="mt-6">
+                            <a href="job-detail-one.html" class="text-lg hover:text-emerald-600 font-semibold transition-all duration-500">Application Developer</a>
+                            <h6 class="text-base font-medium"><i class="uil uil-map-marker"></i> China</h6>
+                        </div>
+
+                        <div class="mt-6">
+                            <div class="w-full bg-gray-100 dark:bg-gray-800 rounded-full h-[6px]">
+                                <div class="bg-emerald-600 h-[6px] rounded-full" style="width: 55%"></div>
+                            </div>
+                            <div class="mt-2">
+                                <span class="text-slate-400 text-sm"><span class="text-slate-900 dark:text-white font-semibold inline-block">21 applied</span> of 40 vacancy</span>
+                            </div>
+                        </div>
+                    </div><!--end content-->
+                </div><!--end grid-->
+            </div><!--end container-->
+            {% endfor %}
+
+            <div class="container-fluid md:mt-24 mt-16">
+                <div class="container">
+                    <div class="grid grid-cols-1">
+                        <div class="relative overflow-hidden lg:px-8 px-6 py-10 rounded-xl shadow-lg dark:shadow-gray-700">
+                            <div class="grid md:grid-cols-12 grid-cols-1 items-center gap-[30px]">
+                                <div class="lg:col-span-8 md:col-span-7">
+                                    <div class="ltr:md:text-left rtl:md:text-right text-center relative z-1">
+                                        <h3 class="text-2xl font-semibold text-black dark:text-white mb-4">Explore a job now!</h3>
+                                        <p class="text-slate-400 max-w-xl">Search all the open positions on the web. Get your own personalized salary estimate. Read reviews on over 30000+ companies worldwide.</p>
+                                    </div>
+                                </div>
+            
+                                <div class="lg:col-span-4 md:col-span-5">
+                                    <div class="ltr:text-right rtl:text-left relative z-1">
+                                        <a href="/job_list/" class="btn bg-emerald-600 hover:bg-emerald-700 border-emerald-600 dark:border-emerald-600 text-white rounded-md">Apply Now</a>
+                                        <a href="/about/" class="btn bg-emerald-600/5 hover:bg-emerald-600 border-emerald-600/10 hover:border-emerald-600 text-emerald-600 hover:text-white rounded-md ms-2">Learn More</a>
+                                    </div>
+                                </div>
+                            </div>
+            
+                            <div class="absolute -top-5 -start-5">
+                                <div class="uil uil-envelope lg:text-[150px] text-7xl text-black/5 dark:text-white/5 ltr:-rotate-45 rtl:rotate-45"></div>
+                            </div>
+            
+                            <div class="absolute -bottom-5 -end-5">
+                                <div class="uil uil-pen lg:text-[150px] text-7xl text-black/5 dark:text-white/5 rtl:-rotate-90"></div>
+                            </div>
+                        </div>
+                    </div><!--end grid-->
+                </div><!--end container-->
+            </div><!--end container-->
+        </section><!--end section-->
+        <!-- End -->
+{% endblock %}
