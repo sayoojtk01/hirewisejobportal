@@ -330,3 +330,6 @@ try{
     switcherRtl?.addEventListener("click" ,changeLayout )
 }
 catch(err){}
+
+
+

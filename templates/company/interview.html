@@ -83,254 +83,106 @@
     </div>
 
 
+
+            <div class="md:flex justify-center">
+                <div class="lg:w-2/4 md:w-2/3">
+                    <div class="p-6 bg-white dark:bg-slate-900 shadow dark:shadow-gray-700 rounded-md">
+                        {% for i in data2 %}
+                        <form class="text-left" action="/setinterview/?jobid={{i.id}}" method="post" enctype="multipart/form-data">{% csrf_token %}
+
+                            <div class="grid grid-cols-1">
+                                <div class="row">
+                                    <div class="col-md-6 ltr:text-left rtl:text-right">
+                                        <label for="jobcategories" name="name" class="font-semibold">Candidate Name:</label>
+                                        <input id="candidateName" type="text" name="name" value="{{i.uid.name}}" class="form-input border border-slate-100 dark:border-slate-800 mt-1" placeholder="">
+                                    </div>
+                        
+                                    <div class="col-md-6 ltr:text-left rtl:text-right">
+                                        <label class="font-semibold" name="date" for="interviewDate">Date:</label>
+                                        <input id="interviewDate" type="date" name="date" class="form-input border border-slate-100 dark:border-slate-800 mt-1" placeholder="" required="True">
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-6 ltr:text-left rtl:text-right">
+                                        <label class="font-semibold" name="time" for="interviewTime">Time:</label>
+                                        <input id="interviewTime" type="time" name="time" class="form-input border border-slate-100 dark:border-slate-800 mt-1" placeholder="" required="True">
+                                    </div>
+                        
+                                    <div class="col-md-6 ltr:text-left rtl:text-right">
+                                        <label class="font-semibold" name="interviewType">Interview Type:</label>
+                                        <select id="interviewType" name="type" class="form-select border border-slate-100 dark:border-slate-800 mt-1" required="True">
+                                            <option value="online">Online</option>
+                                            <option value="inPerson">In-Person</option>
+                                        </select>
+                                    </div>
+                                </div>
+                        
+                                <div class="mb-2 ltr:text-left rtl:text-right" id="locationField">
+                                    <label for="location" name="location" class="font-semibold">Location:</label>
+                                    <input id="location" type="text" name="location" class="form-input border border-slate-100 dark:border-slate-800 mt-1" placeholder="" required="True">
+                                </div>
+                        
+                                <div id="onlineLinkField" style="display: none;">
+                                    <label for="onlineLink" class="font-semibold">Online Interview Link:</label>
+                                    <input id="onlineLink" type="text" class="form-input border border-slate-100 dark:border-slate-800 mt-1" placeholder="Enter the online interview link">
+                                </div>
+                        
+                                <div class="mb-2 ltr:text-left rtl:text-right">
+                                    <label for="requirements" class="font-semibold">Requirements:</label>
+                                    <textarea name="require" id="requirements" class="form-input border border-slate-100 dark:border-slate-800 mt-1 textarea" placeholder=""></textarea>
+                                </div>
+                        
+                                <div class="mb-2 ltr:text-left rtl:text-right">
+                                    <label for="messages" name="msg" class="font-semibold">Messages:</label>
+                                    
+                                    <textarea  name="msg"  id="messages" class="form-input border border-slate-100 dark:border-slate-800 mt-1 textarea" placeholder=""></textarea>
+                                </div>
+                        
+                                <div>
+                                    <button type="submit" id="submit"  class="btn rounded-md bg-emerald-600 hover:bg-emerald-700 border-emerald-600 hover:border-emerald-700 text-white">Schedule</button>
+                                </div>
+                            </div>
+                        
+                            
+                        
+                        </form>
+
+
+                        <script>
+                            const interviewTypeSelect = document.getElementById('interviewType');
+                            const locationField = document.getElementById('locationField');
+                            const onlineLinkField = document.getElementById('onlineLinkField');
+                    
+                            interviewTypeSelect.addEventListener('change', function () {
+                                if (interviewTypeSelect.value === 'online') {
+                                    locationField.style.display = 'none';
+                                    onlineLinkField.style.display = 'block';
+                                } else {
+                                    locationField.style.display = 'block';
+                                    onlineLinkField.style.display = 'none';
+                                }
+                            });
+                        </script>
+                        
+                        
+                        <script>
+                            function toggleLocationField(online) {
+                                const locationField = document.getElementById('location-field');
+                                if (online) {
+                                    locationField.style.display = 'none';
+                                } else {
+                                    locationField.style.display = 'block';
+                                }
+                            }
+                        </script>
+                        
+                        {% endfor %}
+                        <!--end form-->
+                    </div>
+                </div>
+            </div><!--end flex-->
+        
    
-    <div class="col-lg-12">
-    <div class="dashboard-inner">
-    <div class="author-and-action-btn-area two mb-40">
-    <div class="author-area two">
-    <div class="author-img">
-    <!-- <img src="{{x.logo.url}}" alt="">
-    </div>
-    <div class="author-content">
-    <span>Hello,</span>
-    <h4>{{x.cname}}</h4> -->
-    </div>
-    </div>
-    
-    </div>
-    <!-- <div class="counter-area">
-    <div class="row g-4 justify-content-center mb-30">
-    <div class="col-lg-3 col-sm-6">
-    <div class="counter-single">
-    <div class="counter-icon">
-    <img src="/static/main/assets/images/icon/tt-applied.svg" alt="image">
-    </div>
-    <div class="coundown">
-    <p>Total Applied</p>
-    <div class="d-flex align-items-center">
-    <h3 class="odometer">
-    30
-    </h3>
-    <span>+</span>
-    </div>
-    </div>
-    </div>
-    </div> -->
-    <!-- <div class="col-lg-3 col-sm-6">
-    <div class="counter-single two">
-    <div class="counter-icon">
-    <img src="/static/main/assets/images/icon/save-job.svg" alt="image">
-    </div>
-    <div class="coundown">
-    <p>Live Jobs</p>
-    <div class="d-flex align-items-center">
-    <h3 class="odometer">
-    80
-    </h3>
-    <span>+</span>
-    </div>
-    </div>
-    </div>
-    </div> -->
-    
-    <!-- <div class="col-lg-3 col-sm-6">
-    <div class="counter-single three">
-    <div class="counter-icon">
-    <img src="/static/main/assets/images/icon/pending-icon.svg" alt="image">
-    </div>
-    <div class="coundown">
-    <p>Pending Job</p>
-    <div class="d-flex align-items-center">
-    <h3 class="odometer">
-    120
-    </h3>
-    <span>+</span>
-    </div>
-    </div>
-    </div>
-    </div> -->
-    <!-- <div class="col-lg-3 col-sm-6">
-    <div class="counter-single four">
-    <div class="counter-icon">
-    <img src="/static/main/assets/images/icon/closed-icon.svg" alt="image">
-    </div>
-    <div class="coundown">
-    <p>Closed Jobs</p>
-    <div class="d-flex align-items-center">
-    <h3 class="odometer">
-    900
-    </h3>
-    <span>+</span>
-    </div>
-    </div>
-    </div>
-    </div>
-    </div> -->
-    <!-- <div class="row g-4 justify-content-cente">
-    <div class="col-lg-3 col-sm-6">
-    <div class="counter-single">
-    <div class="counter-icon">
-    <img src="/static/main/assets/images/icon/total-view-icon.svg" alt="image">
-    </div>
-    <div class="coundown">
-    <p>Total View</p>
-    <div class="d-flex align-items-center">
-    <h3 class="odometer">
-    2500
-    </h3>
-    <span>+</span>
-    </div>
-    </div>
-    </div>
-    </div> -->
-    <!-- <div class="col-lg-3 col-sm-6">
-    <div class="counter-single two">
-    <div class="counter-icon">
-    <img src="/static/main/assets/images/icon/follow-icon.svg" alt="image">
-    </div>
-    <div class="coundown">
-    <p>Our Followers</p>
-    <div class="d-flex align-items-center">
-    <h3 class="odometer">
-    250
-    </h3>
-    <span>+</span>
-    </div>
-    </div>
-    </div>
-    </div> -->
-    <!-- <div class="col-lg-3 col-sm-6">
-    <div class="counter-single three">
-    <div class="counter-icon">
-    <img src="/static/main/assets/images/icon/highlight-icon.svg" alt="image">
-    </div>
-    <div class="coundown">
-    <p>Highlighted Jobs</p>
-    <div class="d-flex align-items-center">
-    <h3 class="odometer">
-    150
-    </h3>
-    <span>+</span>
-    </div>
-    </div>
-    </div>
-    </div> -->
-    <!-- <div class="col-lg-3 col-sm-6">
-    <div class="counter-single five">
-    <div class="counter-icon">
-    <img src="/static/main/assets/images/icon/featured-icon.svg" alt="image">
-    </div>
-    <div class="coundown">
-    <p>Our Followers</p>
-    <div class="d-flex align-items-center">
-    <h3 class="odometer">
-    500
-    </h3>
-    <span>+</span>
-    </div>
-    </div>
-    </div>
-    </div> -->
-    </div>
-    </div>
-    <div class="new-applied-job-area">
-    <h5>Shortlisted Candidates List:</h5>
-
-
-    <style>
-      /* Mobile responsiveness */
-@media (max-width: 768px) {
-  .eg-table {
-    width: 100%;
-  }
-
-  .employee-img img {
-    max-width: 100%; /* Make the image responsive */
-    height: auto;
-  }
-
-  .employee-content button {
-    width: 100%;
-  }
-
-  .carrer-summary li {
-    font-size: 14px; /* Adjust font size for mobile */
-  }
-  
-  .action-btn-group li {
-    width: 100%;
-  }
-
-  .action-btn-group button {
-    width: 100%;
-  }
-}
-
-    </style>
-
-
-
-
-    {% if data2 %}
-    {% for i in data2 %}
-      <div class="table-wrapper2">
-        <table class="eg-table table category-table mb-0">
-          <tbody>
-            <tr>
-              <td data-label="Candidate Name">
-                <div class="employee-info">
-                  <div class="employee-img">
-                    <img src="{{i.uid.profile.url}}" alt="" class="responsive-image">
-                  </div>
-                  <div class="employee-content">
-                    <button type="button">{{i.uid.name}}</button>
-                    <span><img src="/static/main/assets/images/icon/company-2.svg" alt="">{{i.uid.qualification}}</span>
-                    <p><span>Applied On:</span> 02 April, 2023</p>
-                  </div>
-                </div>
-              </td>
-              <td data-label="Carrer Summary">
-                <div class="carrer-summary">
-                  <ul>
-                    <li><span>Applied Post:</span>{{i.jid.title}}</li>
-                    <li><span>Experience:</span>fresher</li>
-                  </ul>
-                </div>
-              </td>
-              <td data-label="Actions">
-                <div class="action-btn-group">
-                  <ul>
-                    <li>
-                      <button style="background-color: green;">
-                        <img src="/static/main/assets/images/icon/shortlist-icon.svg" alt="">
-                        <a href="{{i.uid.cv.url}}">View Cv</a>
-                      </button>
-                    </li>
-                    <li>
-                      <button id="mybutton">
-                        <img src="/static/main/assets/images/icon/shortlist-icon.svg" alt="">
-                        <a href="/setinterview/?jobid={{i.id}}">Schedule interview</a>
-                      </button>
-                    </li>
-                    <li>
-                      <button id="mybutton22" class="reject">
-                        <img src="/static/main/assets/images/icon/rejected-icon.svg" alt="">
-                        <a href="/rejected/?jobid={{i.id}}">Rejected</a>
-                      </button>
-                    </li>
-                  </ul>
-                </div>
-              </td>
-            </tr>
-          {% endfor %}
-        {% else %}
-          <p>no data</p>
-        {% endif %}
-        <!-- ... -->
-      </tbody>
-    </table>
-  </div>
-  
     
     </div>
     </div>

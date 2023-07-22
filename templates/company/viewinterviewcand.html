@@ -234,7 +234,7 @@
     </div>
     </div>
     <div class="new-applied-job-area">
-    <h5>Shortlisted Candidates List:</h5>
+    <h5>Upcoming Interview List:</h5>
 
 
     <style>
@@ -309,15 +309,21 @@
                     <li>
                       <button id="mybutton">
                         <img src="/static/main/assets/images/icon/shortlist-icon.svg" alt="">
-                        <a href="/setinterview/?jobid={{i.id}}">Schedule interview</a>
+                        <a href="/setinterview/?jobid={{i.id}}">Selected</a>
                       </button>
                     </li>
                     <li>
                       <button id="mybutton22" class="reject">
                         <img src="/static/main/assets/images/icon/rejected-icon.svg" alt="">
-                        <a href="/rejected/?jobid={{i.id}}">Rejected</a>
+                        <a href="/rejected/?jobid={{i.id}}">Not Attend</a>
                       </button>
                     </li>
+                    <li>
+                        <button id="mybutton22" class="reject">
+                          <img src="/static/main/assets/images/icon/rejected-icon.svg" alt="">
+                          <a href="/rejected/?jobid={{i.id}}">Not select</a>
+                        </button>
+                      </li>
                   </ul>
                 </div>
               </td>

@@ -531,3 +531,92 @@ def viewshortlisted(request):
         return render(request,"company/shortlisted.html",{"data2":query2})
     else:
         return HttpResponseRedirect('/login/')
+    
+
+def setinterview(request):
+    if request.session.has_key('mid'):
+
+        if request.method=="POST":
+            jobid=request.GET["jobid"]
+            time=request.POST['time']
+            date=request.POST['date']
+            location=request.POST['location']
+            require=request.POST['require']
+            msg=request.POST['msg']
+            lin=request.POST['type']
+            applyid=apply_job_tb.objects.get(id=jobid)
+
+            data=apply_job_tb.objects.filter(id=jobid)
+            for x in data:
+                comid=x.cmid.id
+                usid=x.uid.id
+                joid=x.jid.id
+
+            com_data=company_register_tb1.objects.get(id=comid)
+            usr_data=applicant_register_tb.objects.get(id=usid)
+            job_data=post_job_tb.objects.get(id=joid)
+
+            add=interview_tb(aplyid=applyid,date=date,time=time,
+                             require=require,msg=msg,loca=location,link=lin,
+                             cmid=com_data,uid=usr_data,jid=job_data)
+            
+            add.save()
+
+
+
+            jobs=apply_job_tb.objects.filter(id=jobid)
+            for x in jobs:
+                title=x.jid.title
+                com=x.cmid.cname
+                umail=x.uid.email
+                uname=x.uid.uname
+
+
+            if lin=='online':
+
+                subject = 'Interview Invitation'
+                message = f'Hi online'
+                email_from = settings.EMAIL_HOST_USER 
+                recipient_list = [umail, ] 
+                send_mail( subject, message, email_from, recipient_list ) 
+
+            else:
+                subject = 'Interview Invitation'
+                message = f'Hi offline'
+                email_from = settings.EMAIL_HOST_USER 
+                recipient_list = [umail, ] 
+                send_mail( subject, message, email_from, recipient_list ) 
+
+
+            data2=apply_job_tb.objects.filter(id=jobid).update(status="setinterview")
+            return HttpResponseRedirect("/viewshortlisted/")
+        else:
+        
+            jobid=request.GET["jobid"]
+            query2=apply_job_tb.objects.filter(id=jobid)
+            return render(request,"company/interview.html",{"data2":query2})
+    else:
+        return HttpResponseRedirect('/login/')
+    
+
+
+
+def viewinterview(request):
+    if request.session.has_key('mid'):
+        mid=request.session['mid']
+        
+        query2=interview_tb.objects.filter(cmid=mid)
+        return render(request,"company/viewinterviewcand.html",{"data2":query2})
+    else:
+        return HttpResponseRedirect('/login/')
+    
+
+
+def allcandidate(request):
+    if request.session.has_key('mid'):
+        mid=request.session['mid']
+        
+        query2=apply_job_tb.objects.filter(cmid=mid)
+        return render(request,"company/allcandidates_apply.html",{"data2":query2})
+    else:
+        return HttpResponseRedirect('/login/')

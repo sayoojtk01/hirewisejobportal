@@ -83,11 +83,14 @@ class apply_job_tb(models.Model):
 
 class interview_tb(models.Model):
     aplyid=models.ForeignKey(apply_job_tb, on_delete=models.CASCADE)
-    date=models.CharField(max_length=225)
+    cmid= models.ForeignKey(company_register_tb1, on_delete=models.CASCADE)
+    uid= models.ForeignKey(applicant_register_tb, on_delete=models.CASCADE)
+    jid= models.ForeignKey(post_job_tb, on_delete=models.CASCADE)
+    date=models.DateField(max_length=225)
     time=models.CharField(max_length=225)
-    req=models.CharField(max_length=225)
+    require=models.CharField(max_length=225)
     msg=models.CharField(max_length=225)
-    
+    loca=models.CharField(max_length=225)
+    link=models.CharField(max_length=225)
 
-	
-	
+    

@@ -48,6 +48,9 @@ urlpatterns = [
     path('shortlisting/', views.shortlisting),
     path('rejected/', views.rejected),
     path('viewshortlisted/',views.viewshortlisted),
+    path('setinterview/',views.setinterview),
+    path('viewinterview/',views.viewshortlisted),
+    path('allcandidate/',views.allcandidate),
 
 
 ]
