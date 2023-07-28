@@ -45,6 +45,8 @@ class post_job_tb(models.Model):
     require=models.CharField(max_length=225)
     nos=models.CharField(max_length=225)
     loca=models.CharField(max_length=225)
+    postdate=models.CharField(max_length=225)
+    lastdata=models.CharField(max_length=225)
 
 
 

@@ -210,31 +210,52 @@
         </div>
         </div>
         </div>
+        <!-- <div class="col-sm-6">
+        
+        </div> -->
+        <!-- <div class="col-sm-6"> -->
+            
+            <!-- </div> -->
         <div class="col-lg-12">
         <div class="company-images-area mb-50">
         <div class="row g-lg-4 gy-5">
+
         <div class="col-lg-6 devaider1 position-relative">
         <div class="company-cover-photo-area">
+            
         <h5>Company Logo: </h5>
         <input type="file" name="logo" value="{{x.logo.url}}" >
-        <div class="drag-area">
-        <p>Upload Logo</p>
+        <div class="form-group">
+            <label for="exampleInput">Do you want to update Logo?</label>
+            <input type="radio"  name="imgup" onchange="hide()" id="imgup" value="yes"> yes
+            <input type="radio"  name="imgup" onchange="hide()"  value="no" checked> no
+
+        </div>
+        <!-- <div class="drag-area"> -->
+        <!-- <p>Upload Logo</p> -->
         <!-- <button type="button" class="upload-btn"><i class="bi bi-plus-lg"></i></button> -->
         
-        </div>
-        <span>Maximum File Upload: 2 MB</span>
+        <!-- </div> -->
+        <!-- <span>Maximum File Upload: 2 MB</span> -->
         </div>
         </div>
         <div class="col-lg-6">
+            
         <div class="company-cover-photo-area">
         <h5>Company Cover Photo: </h5>
         <input type="file" name="cover" value="{{x.cover.url}}">
-        <div class="drag-area" id="dragArea2">
-        <p>Upload Photo</p>
-        <!-- <button type="button" class="upload-btn"><i class="bi bi-plus-lg"></i></button> -->
-        
+        <div class="form-group">
+            <label for="exampleInput">Do you want to cover Photo?</label>
+            <input type="radio"  name="imgup2" onchange="hide()" id="imgup" value="yes"> yes
+            <input type="radio"  name="imgup2" onchange="hide()"  value="no" checked> no
+
         </div>
-        <span>Maximum File Upload: 5 MB</span>
+        <!-- <div class="drag-area" id="dragArea2"> -->
+        <!-- <p>Upload Photo</p> -->
+        <!-- <button type="button" class="upload-btn"><i class="bi bi-plus-lg"></i></button> -->
+<!--         
+        </div> -->
+        <!-- <span>Maximum File Upload: 5 MB</span> -->
         </div>
         </div>
         </div>

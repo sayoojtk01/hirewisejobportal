@@ -5,6 +5,7 @@ from django.shortcuts import redirect,HttpResponseRedirect
 import os
 from django.core.mail import send_mail
 from django.conf import settings
+from django.utils import timezone
 
 
 
@@ -353,9 +354,11 @@ def job_post(request):
             require=request.POST['require']
             nos=request.POST['nos']
             loca=request.POST['loca']
+            post=timezone.now().date()
+            enddate=request.POST['endate']
             com=company_register_tb1.objects.get(id=mid)
             add=post_job_tb(title=title,desc=desc,cat=cat,type=type,salary=salary,min=min,max=max,skills=skills,qualification=qualification,
-                            exp=exp,require=require,nos=nos,loca=loca,cid=com)
+                            exp=exp,require=require,nos=nos,loca=loca,cid=com,postdate=post,lastdata=enddate)
             add.save()
             return render(request,"company/job-post.html",{"msg":"Post Job Succesussfully"})
 
@@ -384,11 +387,41 @@ def myprofile(request):
             workingfield=request.POST['workingfield']
             description=request.POST['description']
             mid=request.GET['regid']
-            logo=request.FILES['logo']
-            cover=request.FILES['cover']
+            checkbox=request.POST["imgup"]
+            checkbox2=request.POST["imgup2"]
+
+            if checkbox == "yes":
+                ad_image=request.FILES["logo"]
+                oldrec=company_register_tb1.objects.filter(id=mid)
+                updrec=company_register_tb1.objects.get(id=mid)
+                for x in oldrec:
+                    imageurl=x.logo.url
+                    pathtoimage=os.path.dirname(os.path.dirname(os.path.abspath(__file__)))+imageurl
+                    if os.path.exists(pathtoimage):
+                        os.remove(pathtoimage)
+                        print('Successfully deleted1')
+                updrec.logo=ad_image
+                updrec.save()
+                print("-----------------1-----------------")
+
+            if checkbox2 == "yes":
+                ad_image2=request.FILES["cover"]
+                oldrec=company_register_tb1.objects.filter(id=mid)
+                updrec=company_register_tb1.objects.get(id=mid)
+                for x in oldrec:
+                    imageurl=x.cover.url
+                    pathtoimage=os.path.dirname(os.path.dirname(os.path.abspath(__file__)))+imageurl
+                    if os.path.exists(pathtoimage):
+                        os.remove(pathtoimage)
+                        print('Successfully deleted2')
+                updrec.cover=ad_image2
+                updrec.save()
+                print("-----------------2-----------------")
+
+
             add=company_register_tb1.objects.filter(id=mid).update(cname=companyname,ctype=companytype,
                         size=companysize,location=location,website=website,twitter=twitter,facebook=facebook,linkedin=linkedin,
-                        pinterest=pinterest,dribble=dribble,behance=behance,logo=logo,cover=cover,working=workingfield,description=description)
+                        pinterest=pinterest,dribble=dribble,behance=behance,working=workingfield,description=description)
             return HttpResponseRedirect('/myprofile/')
         else:
             mid=request.session['mid']
