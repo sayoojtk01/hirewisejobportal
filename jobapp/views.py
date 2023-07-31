@@ -6,6 +6,7 @@ import os
 from django.core.mail import send_mail
 from django.conf import settings
 from django.utils import timezone
+from django.core.paginator import Paginator
 
 
 
@@ -15,15 +16,106 @@ from django.utils import timezone
 
 
 def index(request):
-    query1=post_job_tb.objects.all().order_by('-id')[:6]
+    
+    query1=post_job_tb.objects.all().order_by('-id')
+    paginator=Paginator(query1,6)
+    page_num=request.GET.get('page',1)
+    query1=paginator.page(page_num)
     return render(request,"main/index.html",{"data":query1})
+
+
+def jobsearch(request):
+    if request.method=="POST":
+        q=request.POST['q']
+        b=request.POST['b']
+
+        if q and b:
+            query1=post_job_tb.objects.filter(title__icontains=q,loca__icontains=b).order_by('-id')
+
+        elif b:
+            query1=post_job_tb.objects.filter(loca__icontains=b).order_by('-id')
+
+        elif q:
+            query1=post_job_tb.objects.filter(title__icontains=q).order_by('-id')
+
+        
+        else:
+            query1=post_job_tb.objects.all().order_by('-id')
+        
+        #pagination in django
+        paginator=Paginator(query1,1)
+        page_num=request.GET.get('page',1)
+        query1=paginator.page(page_num)
+
+        return render(request,"main/index.html",{"data":query1})
+        
+    else:
+        #pagination in django
+        paginator=Paginator(query1,1)
+        page_num=request.GET.get('page',1)
+        query1=paginator.page(page_num)
+
+        query1=post_job_tb.objects.all().order_by('-id')
+        return render(request,"main/index.html",{"data":query1})
+
+
+
 
 def job_cat(request):
     return render(request,"main/job-categories.html")
 
+
+
 def job_grid(request):
     query1=post_job_tb.objects.all().order_by('-id')
+
+
+    #pagination in django
+    paginator=Paginator(query1,1)
+    page_num=request.GET.get('page',1)
+    query1=paginator.page(page_num)
+
     return render(request,"main/job-grid-four.html",{"data":query1})
+
+
+
+def jobjobsearch(request):
+    if request.method=="POST":
+        q=request.POST['q']
+        b=request.POST['b']
+
+        if q and b:
+            
+            query1=post_job_tb.objects.filter(title__icontains=q,loca__icontains=b).order_by('-id')
+
+        elif b:
+            query1=post_job_tb.objects.filter(loca__icontains=b).order_by('-id')
+
+        elif q:
+            query1=post_job_tb.objects.filter(title__icontains=q).order_by('-id')
+
+        
+        else:
+            query1=post_job_tb.objects.all().order_by('-id')
+
+        #pagination in django
+        paginator=Paginator(query1,1)
+        page_num=request.GET.get('page',1)
+        query1=paginator.page(page_num)
+        
+        return render(request,"main/job-grid-four.html",{"data":query1})
+        
+    else:
+        #pagination in django
+        paginator=Paginator(query1,1)
+        page_num=request.GET.get('page',1)
+        query1=paginator.page(page_num)
+
+        query1=post_job_tb.objects.all().order_by('-id')
+        return render(request,"main/job-grid-four.html",{"data":query1})
+    
+
+
 
 def job_list(request):
     query1=post_job_tb.objects.all().order_by('-id')

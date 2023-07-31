@@ -237,6 +237,8 @@
     <h5>Shortlisted Candidates List:</h5>
 
 
+
+    <!-- table styling -->
     <style>
       /* Mobile responsiveness */
 @media (max-width: 768px) {
@@ -266,6 +268,33 @@
   }
 }
 
+    </style>
+
+
+
+    <!-- button styling -->
+
+
+    <style>
+      /* Add this style block to your HTML file or include it in a separate CSS file */
+      .job-action-button {
+        background-color: green;
+        padding: 5px 10px; /* Adjust padding as needed */
+        border: none;
+        color: white;
+        text-align: center;
+        text-decoration: none;
+        display: inline-block;
+        font-size: 16px;
+        margin: 4px 2px;
+        cursor: pointer;
+        width: 150px; /* Set a fixed width for all buttons */
+      }
+    
+      /* Additional styles for the "rejected" button */
+      .reject {
+        background-color: red;
+      }
     </style>
 
 
@@ -300,24 +329,26 @@
               <td data-label="Actions">
                 <div class="action-btn-group">
                   <ul>
-                    <li>
-                      <button style="background-color: green;">
-                        <img src="/static/main/assets/images/icon/shortlist-icon.svg" alt="">
-                        <a href="{{i.uid.cv.url}}">View Cv</a>
-                      </button>
-                    </li>
-                    <li>
-                      <button id="mybutton">
-                        <img src="/static/main/assets/images/icon/shortlist-icon.svg" alt="">
-                        <a href="/setinterview/?jobid={{i.id}}">Schedule interview</a>
-                      </button>
-                    </li>
-                    <li>
-                      <button id="mybutton22" class="reject">
-                        <img src="/static/main/assets/images/icon/rejected-icon.svg" alt="">
-                        <a href="/rejected/?jobid={{i.id}}">Rejected</a>
-                      </button>
-                    </li>
+                    
+                      <li>
+                        <button class="job-action-button" style="background-color: green;">
+                          <img src="/static/main/assets/images/icon/shortlist-icon.svg" alt="">
+                          <a href="{{i.uid.cv.url}}">View Cv</a>
+                        </button>
+                      </li>
+                      <li>
+                        <button class="job-action-button" id="mybutton">
+                          <img src="/static/main/assets/images/icon/shortlist-icon.svg" alt="">
+                          <a href="/setinterview/?jobid={{i.id}}">Schedule interview</a>
+                        </button>
+                      </li>
+                      <li>
+                        <button class="job-action-button" style="background-color: red;" id="mybutton22" class="reject">
+                          <img src="/static/main/assets/images/icon/rejected-icon.svg" alt="">
+                          <a href="/rejected/?jobid={{i.id}}">Rejected</a>
+                        </button>
+                      </li>
+                    
                   </ul>
                 </div>
               </td>
