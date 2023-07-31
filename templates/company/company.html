@@ -206,8 +206,15 @@
          <span class="light-blue">Remote</span> -->
          </div>
          <div class="">
-         <a href="/job_del/?jobid={{x.id}}"><span style="color: red;">Delete Now</span></a>
+         <a href="/job_del/?jobid={{x.id}}">Status:<span style="color: red;">{{x.status}}</span></a>
          </div>
+         
+         {% if x.status == "active" %}
+         <div class="">
+            <button class="btn btn-danger"> <a href="/job_del/?jobid={{x.id}}"><span style="color:white;">Delete Now</span></a></button>
+         
+         </div>
+         {% endif %}
          </div>
          </div>
          </div>

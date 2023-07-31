@@ -47,6 +47,8 @@ class post_job_tb(models.Model):
     loca=models.CharField(max_length=225)
     postdate=models.CharField(max_length=225)
     lastdata=models.CharField(max_length=225)
+    status=models.CharField(max_length=255,default="active")
+
 
 
 

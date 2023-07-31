@@ -17,9 +17,10 @@ from django.core.paginator import Paginator
 
 def index(request):
     
-    query1=post_job_tb.objects.all().order_by('-id')
+    query1=post_job_tb.objects.filter(status="active").order_by('-id')
     paginator=Paginator(query1,6)
     page_num=request.GET.get('page',1)
+
     query1=paginator.page(page_num)
     return render(request,"main/index.html",{"data":query1})
 
@@ -30,17 +31,17 @@ def jobsearch(request):
         b=request.POST['b']
 
         if q and b:
-            query1=post_job_tb.objects.filter(title__icontains=q,loca__icontains=b).order_by('-id')
+            query1=post_job_tb.objects.filter(title__icontains=q,loca__icontains=b,status="active").order_by('-id')
 
         elif b:
-            query1=post_job_tb.objects.filter(loca__icontains=b).order_by('-id')
+            query1=post_job_tb.objects.filter(loca__icontains=b,status="active").order_by('-id')
 
         elif q:
-            query1=post_job_tb.objects.filter(title__icontains=q).order_by('-id')
+            query1=post_job_tb.objects.filter(title__icontains=q,status="active").order_by('-id')
 
         
         else:
-            query1=post_job_tb.objects.all().order_by('-id')
+            query1=post_job_tb.objects.filter(status="active").order_by('-id')
         
         #pagination in django
         paginator=Paginator(query1,1)
@@ -55,7 +56,7 @@ def jobsearch(request):
         page_num=request.GET.get('page',1)
         query1=paginator.page(page_num)
 
-        query1=post_job_tb.objects.all().order_by('-id')
+        query1=post_job_tb.objects.filter(status="active").order_by('-id')
         return render(request,"main/index.html",{"data":query1})
 
 
@@ -67,7 +68,7 @@ def job_cat(request):
 
 
 def job_grid(request):
-    query1=post_job_tb.objects.all().order_by('-id')
+    query1=post_job_tb.objects.filter(status="active").order_by('-id')
 
 
     #pagination in django
@@ -86,17 +87,17 @@ def jobjobsearch(request):
 
         if q and b:
             
-            query1=post_job_tb.objects.filter(title__icontains=q,loca__icontains=b).order_by('-id')
+            query1=post_job_tb.objects.filter(title__icontains=q,loca__icontains=b,status="active").order_by('-id')
 
         elif b:
-            query1=post_job_tb.objects.filter(loca__icontains=b).order_by('-id')
+            query1=post_job_tb.objects.filter(loca__icontains=b,status="active").order_by('-id')
 
         elif q:
-            query1=post_job_tb.objects.filter(title__icontains=q).order_by('-id')
+            query1=post_job_tb.objects.filter(title__icontains=q,status="active").order_by('-id')
 
         
         else:
-            query1=post_job_tb.objects.all().order_by('-id')
+            query1=post_job_tb.objects.filter(status="active").order_by('-id')
 
         #pagination in django
         paginator=Paginator(query1,1)
@@ -111,14 +112,14 @@ def jobjobsearch(request):
         page_num=request.GET.get('page',1)
         query1=paginator.page(page_num)
 
-        query1=post_job_tb.objects.all().order_by('-id')
+        query1=post_job_tb.objects.filter(status="active").order_by('-id')
         return render(request,"main/job-grid-four.html",{"data":query1})
     
 
 
 
 def job_list(request):
-    query1=post_job_tb.objects.all().order_by('-id')
+    query1=post_job_tb.objects.filter(status="active").order_by('-id')
     return render(request,"main/job-list-three.html",{"data":query1})
 
 def job_details(request):
@@ -422,6 +423,12 @@ def company_dash(request):
         mid=request.session['mid']
         query1=company_register_tb1.objects.filter(id=mid)
         query2=apply_job_tb.objects.filter(cmid=mid,status="pending")
+
+        paginator=Paginator(query2,15)
+        page_num=request.GET.get('page',1)
+        query2=paginator.page(page_num)
+
+
         return render(request,"company/dashboard.html",{"data":query1,"data2":query2})
     else:
         return HttpResponseRedirect('/login/')
@@ -450,7 +457,7 @@ def job_post(request):
             enddate=request.POST['endate']
             com=company_register_tb1.objects.get(id=mid)
             add=post_job_tb(title=title,desc=desc,cat=cat,type=type,salary=salary,min=min,max=max,skills=skills,qualification=qualification,
-                            exp=exp,require=require,nos=nos,loca=loca,cid=com,postdate=post,lastdata=enddate)
+                            exp=exp,require=require,nos=nos,loca=loca,cid=com,postdate=post,lastdata=enddate,status="active")
             add.save()
             return render(request,"company/job-post.html",{"msg":"Post Job Succesussfully"})
 
@@ -585,7 +592,7 @@ def comdelete(request):
 def job_del(request):
     if request.session.has_key('mid'):
         jobid=request.GET['jobid']
-        data2=post_job_tb.objects.filter(id=jobid).delete()
+        data2=post_job_tb.objects.filter(id=jobid).update(status="deactive")
         return HttpResponseRedirect("/company/")
     else:
         return HttpResponseRedirect('/login/')
@@ -653,6 +660,11 @@ def viewshortlisted(request):
         mid=request.session['mid']
         
         query2=apply_job_tb.objects.filter(cmid=mid,status="shortlisted")
+
+        paginator=Paginator(query2,15)
+        page_num=request.GET.get('page',1)
+        query2=paginator.page(page_num)
+
         return render(request,"company/shortlisted.html",{"data2":query2})
     else:
         return HttpResponseRedirect('/login/')
@@ -731,6 +743,11 @@ def viewinterview(request):
         mid=request.session['mid']
         
         query2=interview_tb.objects.filter(cmid=mid)
+
+        paginator=Paginator(query2,15)
+        page_num=request.GET.get('page',1)
+        query2=paginator.page(page_num)
+
         return render(request,"company/viewinterviewcand.html",{"data2":query2})
     else:
         return HttpResponseRedirect('/login/')
@@ -740,8 +757,13 @@ def viewinterview(request):
 def allcandidate(request):
     if request.session.has_key('mid'):
         mid=request.session['mid']
-        
         query2=apply_job_tb.objects.filter(cmid=mid)
+
+        paginator=Paginator(query2,15)
+        page_num=request.GET.get('page',1)
+        query2=paginator.page(page_num)
+        
+        
         return render(request,"company/allcandidates_apply.html",{"data2":query2})
     else:
         return HttpResponseRedirect('/login/')
