@@ -333,7 +333,7 @@ def applied_job(request):
         for i in data:
             userid=i.id
         query1=apply_job_tb.objects.filter(uid=mid).order_by('-id')
-        
+
 
         # FOR PAGINATION
         paginator=Paginator(query1,10)
@@ -640,6 +640,15 @@ def job_del(request):
         return HttpResponseRedirect("/company/")
     else:
         return HttpResponseRedirect('/login/')
+    
+
+def job_del_from_jolist(request):
+    if request.session.has_key('mid'):
+        jobid=request.GET['jobid']
+        data2=post_job_tb.objects.filter(id=jobid).update(status="deactive")
+        return HttpResponseRedirect("/com_joblist/")
+    else:
+        return HttpResponseRedirect('/login/')
 
 
 def shortlisting(request):
@@ -815,7 +824,7 @@ def allcandidate(request):
 
 
 
-# for job applied candidates wise report,this code for show the pdf page
+# FOR JOB APPLIED CANDIDATES WISE REPORT,THIS CODE FOR SHOW THE PDF PAGE
 
 # class GeneratePdf(View):
 
@@ -842,7 +851,8 @@ def allcandidate(request):
 
 
 
-# for job applied candidates wise report,this code for download the applied list pdf page
+
+# FOR JOB APPLIED CANDIDATES WISE REPORT AUTO DOWNLOAD APPLIED LIST
 class GeneratePdf(View):
     def get(self, request, *args, **kwargs):
         jobid = request.GET.get("jobid")

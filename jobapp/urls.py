@@ -50,6 +50,7 @@ urlpatterns = [
     path('passwordchange/', views.passwordchange),
     path('comdelete/', views.comdelete),
     path('job_del/', views.job_del),
+    path('job-del-joblist/', views.job_del_from_jolist),
     path('shortlisting/', views.shortlisting),
     path('rejected/', views.rejected),
     path('viewshortlisted/',views.viewshortlisted),
