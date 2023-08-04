@@ -206,7 +206,7 @@
          <span class="light-blue">Remote</span> -->
          </div>
          <div class="">
-         <a href="/job_del/?jobid={{x.id}}">Status:<span style="color: red;">{{x.status}}</span></a>
+         <a href="">Status:<span style="color: red;">{{x.status}}</span></a>
          </div>
          
          {% if x.status == "active" %}
@@ -384,6 +384,54 @@
          </div>
          </div>
          </div> -->
+
+
+
+
+         <div class="grid md:grid-cols-12 grid-cols-1 mt-8">
+                    <div class="md:col-span-12 text-center">
+                        <nav aria-label="Page navigation example">
+                            <ul class="inline-flex items-center -space-x-px">
+                                {% if data2.has_previous %}
+                                <li>
+                                    <a href="?page={{data2.previous_page_number}}" class="w-[40px] h-[40px] inline-flex justify-center items-center text-slate-400 bg-white dark:bg-slate-900 rounded-s-3xl hover:text-white border border-gray-100 dark:border-gray-800 hover:border-emerald-600 dark:hover:border-emerald-600 hover:bg-emerald-600 dark:hover:bg-emerald-600">
+                                        <i class="uil uil-angle-left text-[20px] rtl:rotate-180 rtl:-mt-1"></i>
+                                    </a>
+                                </li>
+                                {% endif %}
+
+
+                                {% for i in data2.paginator.page_range %}
+
+
+                                {% if data2.number == i %}
+                                
+                                <li>
+                                    <a href="#" aria-current="page" class="z-10 w-[40px] h-[40px] inline-flex justify-center items-center text-white bg-emerald-600 border border-emerald-600">{{i}}</a>
+                                </li>
+                                {% else %}
+                                
+                                <li>
+                                    <a href="#" class="w-[40px] h-[40px] inline-flex justify-center items-center text-slate-400 hover:text-white bg-white dark:bg-slate-900 border border-gray-100 dark:border-gray-800 hover:border-emerald-600 dark:hover:border-emerald-600 hover:bg-emerald-600 dark:hover:bg-emerald-600">{{i}}</a>
+                                </li>
+                                {% endif %}
+
+
+                                {% endfor %}
+
+                                
+
+                                {% if data2.has_next %}
+                                <li>
+                                    <a href="?page={{data2.next_page_number}}" class="w-[40px] h-[40px] inline-flex justify-center items-center text-slate-400 bg-white dark:bg-slate-900 rounded-e-3xl hover:text-white border border-gray-100 dark:border-gray-800 hover:border-emerald-600 dark:hover:border-emerald-600 hover:bg-emerald-600 dark:hover:bg-emerald-600">
+                                        <i class="uil uil-angle-right text-[20px] rtl:rotate-180 rtl:-mt-1"></i>
+                                    </a>
+                                </li>
+                                {% endif %}
+                            </ul>
+                        </nav>
+                    </div><!--end col-->
+                </div>
          </section>
 
          

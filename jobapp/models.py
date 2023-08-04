@@ -1,5 +1,12 @@
 from django.db import models
 
+
+from datetime import datetime
+
+from django.utils import timezone
+from django.db.models.signals import post_save
+from django.dispatch import receiver
+
 # Create your models here.
    
 
@@ -46,8 +53,10 @@ class post_job_tb(models.Model):
     nos=models.CharField(max_length=225)
     loca=models.CharField(max_length=225)
     postdate=models.CharField(max_length=225)
-    lastdata=models.CharField(max_length=225)
+    lastdata=models.DateField()
     status=models.CharField(max_length=255,default="active")
+
+    
 
 
 
@@ -98,3 +107,9 @@ class interview_tb(models.Model):
     link=models.CharField(max_length=225)
 
     
+
+@receiver(post_save,sender=post_job_tb)
+def update_status_on_lastdata(sender, instance, **kwargs):
+    if instance.lastdata < str(timezone.now().date()):
+        instance.status = "deactive"
+        instance.save()

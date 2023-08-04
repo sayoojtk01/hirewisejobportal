@@ -1,6 +1,8 @@
 from django.urls import path
 from . import views
 
+from .views import GeneratePdf
+
 urlpatterns = [
     path('', views.index),
     path('job_cat/', views.job_cat),
@@ -55,6 +57,8 @@ urlpatterns = [
     path('viewinterview/',views.viewinterview),
     path('allcandidate/',views.allcandidate),
 
+
+    path('topdf/', GeneratePdf.as_view()),
 
 ]
 

@@ -7,6 +7,12 @@ from django.core.mail import send_mail
 from django.conf import settings
 from django.utils import timezone
 from django.core.paginator import Paginator
+from django.http import JsonResponse
+
+
+from django.views.generic import View
+from .utils import render_to_pdf
+from django.template.loader import get_template 
 
 
 
@@ -44,7 +50,7 @@ def jobsearch(request):
             query1=post_job_tb.objects.filter(status="active").order_by('-id')
         
         #pagination in django
-        paginator=Paginator(query1,1)
+        paginator=Paginator(query1,21)
         page_num=request.GET.get('page',1)
         query1=paginator.page(page_num)
 
@@ -52,7 +58,7 @@ def jobsearch(request):
         
     else:
         #pagination in django
-        paginator=Paginator(query1,1)
+        paginator=Paginator(query1,21)
         page_num=request.GET.get('page',1)
         query1=paginator.page(page_num)
 
@@ -72,7 +78,7 @@ def job_grid(request):
 
 
     #pagination in django
-    paginator=Paginator(query1,1)
+    paginator=Paginator(query1,21)
     page_num=request.GET.get('page',1)
     query1=paginator.page(page_num)
 
@@ -100,7 +106,7 @@ def jobjobsearch(request):
             query1=post_job_tb.objects.filter(status="active").order_by('-id')
 
         #pagination in django
-        paginator=Paginator(query1,1)
+        paginator=Paginator(query1,21)
         page_num=request.GET.get('page',1)
         query1=paginator.page(page_num)
         
@@ -108,7 +114,7 @@ def jobjobsearch(request):
         
     else:
         #pagination in django
-        paginator=Paginator(query1,1)
+        paginator=Paginator(query1,21)
         page_num=request.GET.get('page',1)
         query1=paginator.page(page_num)
 
@@ -130,53 +136,64 @@ def job_details(request):
 
 def job_apply(request):
     if request.session.has_key('id'):
-        userid=request.session['id']
-        jobid=request.GET['jobid']
-        data=post_job_tb.objects.filter(id=jobid)
-        for x in data:
-            cmid=x.cid.id
+        # if request.method=="POST":
+            userid=request.session['id']
+            jobid=request.GET['jobid']
+            print("iddddddddddddddd",jobid)
+            data=post_job_tb.objects.filter(id=jobid)
+            for x in data:
+                cmid=x.cid.id
 
-        com=company_register_tb1.objects.get(id=cmid)
+            com=company_register_tb1.objects.get(id=cmid)
 
-        user=applicant_register_tb.objects.get(id=userid)
+            user=applicant_register_tb.objects.get(id=userid)
 
-        jobs=post_job_tb.objects.get(id=jobid)
+            jobs=post_job_tb.objects.get(id=jobid)
 
-        # for mail function
-        user2=applicant_register_tb.objects.filter(id=userid)
-        for i in user2:
-            uname=i.uname
-            umail=i.email
+            # for mail function
+            user2=applicant_register_tb.objects.filter(id=userid)
+            for i in user2:
+                uname=i.uname
+                umail=i.email
 
-        
+            
 
-        # for mail function
-        jobs2=post_job_tb.objects.filter(id=jobid)
-        for x in jobs2:
-            title=x.title
-            comna=x.cid.cname
-
-
-        # for alredy checking
-        check=apply_job_tb.objects.filter(jid=jobid,uid=userid)
-        if check:
-            return HttpResponse("Already Applied")
-        else:
-            add=apply_job_tb(cmid=com,uid=user,jid=jobs,status="pending")
-            add.save()
+            # for mail function
+            jobs2=post_job_tb.objects.filter(id=jobid)
+            for x in jobs2:
+                title=x.title
+                comna=x.cid.cname
 
 
-            # send mail
-            subject = 'HireWIse Applied'
-            message = f'Hi {uname} HireWIse apllication for, {title} ,{comna} Applied Successfully'
-            email_from = settings.EMAIL_HOST_USER 
-            recipient_list = [umail, ] 
-            send_mail( subject, message, email_from, recipient_list )
+            # for alredy checking
+            check=apply_job_tb.objects.filter(jid=jobid,uid=userid)
+            if check:
+                print("faiedddddddddddddddddddddddddddddddd")
+                return JsonResponse({'message1': 'field'})
+
+            else:
+                add=apply_job_tb(cmid=com,uid=user,jid=jobs,status="pending")
+                add.save()
 
 
-            return HttpResponse("Applied Successfully ")
+                # send mail
+                subject = 'HireWIse Applied'
+                message = f'Hi {uname} HireWIse apllication for, {title} ,{comna} Applied Successfully'
+                email_from = settings.EMAIL_HOST_USER 
+                recipient_list = [umail, ] 
+                send_mail( subject, message, email_from, recipient_list )
+
+                print("successfullllllllllllllllllllllllllllllllllll")
+                return JsonResponse({'message1': 'successful'})
+            
+
+        # else:
+        #     print("nooooooooooooooooooooooooooooooooooooooooooo")
+        #     return HttpResponseRedirect('/login/')
+
     else:
-        return HttpResponseRedirect('/candidate/')
+        # JsonResponse({'message': 'Please Login'})
+        return HttpResponseRedirect('/login/')
         
 
 def career(request):
@@ -413,7 +430,13 @@ def company(request):
     if request.session.has_key('mid'):
         mid=request.session['mid']
         q= company_register_tb1.objects.filter(id=mid)
-        query2=post_job_tb.objects.filter(cid=mid)
+        query2=post_job_tb.objects.filter(cid=mid).order_by('-id')
+
+
+        paginator=Paginator(query2,15)
+        page_num=request.GET.get('page',1)
+        query2=paginator.page(page_num)
+        
         return render(request,"company/company.html",{"data":q,"data2":query2})
     else:
         return HttpResponseRedirect('/login/')
@@ -422,7 +445,7 @@ def company_dash(request):
     if request.session.has_key('mid'):
         mid=request.session['mid']
         query1=company_register_tb1.objects.filter(id=mid)
-        query2=apply_job_tb.objects.filter(cmid=mid,status="pending")
+        query2=apply_job_tb.objects.filter(cmid=mid,status="pending").order_by('-id')
 
         paginator=Paginator(query2,15)
         page_num=request.GET.get('page',1)
@@ -536,7 +559,12 @@ def com_joblist(request):
     if request.session.has_key('mid'):
         mid=request.session['mid']
         # q= company_register_tb1.objects.filter(id=mid)
-        query2=post_job_tb.objects.filter(cid=mid)
+        query2=post_job_tb.objects.filter(cid=mid).order_by('-id')
+
+        paginator=Paginator(query2,15)
+        page_num=request.GET.get('page',1)
+        query2=paginator.page(page_num)
+
         return render(request,"company/com_joblist.html",{"data":query2})
     else:
         return HttpResponseRedirect('/login/')
@@ -767,3 +795,51 @@ def allcandidate(request):
         return render(request,"company/allcandidates_apply.html",{"data2":query2})
     else:
         return HttpResponseRedirect('/login/')
+    
+
+
+
+# for job applied candidates wise report,this code for show the pdf page
+
+# class GeneratePdf(View):
+
+#     def get(self, request, *args, **kwargs):
+#         jobid=request.GET.get("jobid")
+#         print("thejobid is",jobid)
+#         query2=apply_job_tb.objects.filter(jid=jobid)
+
+#         # data = {
+#         # "name": "Mama", #you can feach the data from database
+#         # "id": 18,
+#         # "amount": 333,
+#         # }
+
+#         pdf = render_to_pdf('company/jobwise_applied_report.html',{"data2":query2})
+#         if pdf:
+#             response=HttpResponse(pdf,content_type='application/pdf')
+#             filename = "applicants%s.pdf" 
+#             content = "inline; filename= %s" %(filename)
+#             response['Content-Disposition']=content
+#             return response
+#         return HttpResponse("Page Not Found")
+
+
+
+
+# for job applied candidates wise report,this code for download the applied list pdf page
+class GeneratePdf(View):
+    def get(self, request, *args, **kwargs):
+        jobid = request.GET.get("jobid")
+        # print("thejobid is", jobid)
+        query2 = apply_job_tb.objects.filter(jid=jobid)
+        for i in query2:
+            name=i.jid.title
+
+        pdf = render_to_pdf('company/jobwise_applied_report.html', {"data2": query2})
+        if pdf:
+            response = HttpResponse(pdf, content_type='application/pdf')
+            filename = f"applicants_of_{name}.pdf"  # Set the filename using jobid
+            content = f'attachment; filename="{filename}"'  # Use "attachment" for auto-download
+            response['Content-Disposition'] = content
+            return response
+        return HttpResponse("Page Not Found")
