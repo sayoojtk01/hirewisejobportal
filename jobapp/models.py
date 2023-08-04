@@ -92,6 +92,7 @@ class apply_job_tb(models.Model):
     uid= models.ForeignKey(applicant_register_tb, on_delete=models.CASCADE)
     jid= models.ForeignKey(post_job_tb, on_delete=models.CASCADE)
     status=models.CharField(max_length=255,default="pending")
+    date=models.DateField()
 
 
 class interview_tb(models.Model):

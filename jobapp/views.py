@@ -172,7 +172,8 @@ def job_apply(request):
                 return JsonResponse({'message1': 'field'})
 
             else:
-                add=apply_job_tb(cmid=com,uid=user,jid=jobs,status="pending")
+                date=timezone.now().date()
+                add=apply_job_tb(cmid=com,uid=user,jid=jobs,date=date,status="pending")
                 add.save()
 
 
@@ -192,7 +193,6 @@ def job_apply(request):
         #     return HttpResponseRedirect('/login/')
 
     else:
-        # JsonResponse({'message': 'Please Login'})
         return HttpResponseRedirect('/login/')
         
 
@@ -324,7 +324,23 @@ def candidate(request):
 
 def applied_job(request):
     if request.session.has_key('id'):
-        return render(request,"main/cand_applied_jobs.html")
+        mid=request.session['id']
+
+        
+
+        # DATA FETCHING FROM APPLY TABLE
+        data=applicant_register_tb.objects.filter(id=mid)
+        for i in data:
+            userid=i.id
+        query1=apply_job_tb.objects.filter(uid=mid).order_by('-id')
+        
+
+        # FOR PAGINATION
+        paginator=Paginator(query1,10)
+        page_num=request.GET.get('page',1)
+        query1=paginator.page(page_num)
+
+        return render(request,"main/cand_applied_jobs.html",{"data":query1})
     else:
         return HttpResponseRedirect('/login/')
     

@@ -107,11 +107,11 @@
    </div>
    <div class="single-widget">
    <div class="widget-title">
-   <h6>Recent Activity:</h6>
+   <!-- <h6>Recent Activity:</h6> -->
    </div>
    <ul class="recent-activitys">
    <li>
-   <div class="company-img">
+   <!-- <div class="company-img">
    <img src="/static/main/assets/images/bg/company-logo/recent-activity-01.png" alt>
    </div>
    <div class="content">
@@ -144,7 +144,7 @@
    <div class="content">
    <h6><a href="blog-details.html">Your Job Posted Published On Position Frontend Developer.</a></h6>
    <span><img src="/static/main/assets/images/icon/clock-1.svg" alt> 1 hour ago</span>
-   </div>
+   </div> -->
    </li>
    </ul>
    </div>
@@ -190,31 +190,37 @@
    </tr>
    </thead>
    <tbody>
+
+
+    {% for i in data %}
    <tr>
    <td data-label="Job Title">
    <div class="company-info">
    <div class="logo">
-   <img src="assets/images/bg/company-logo/company-06.png" alt>
+   <img src="{{i.cmid.logo.url}}" alt>
    </div>
    <div class="company-details">
    <div class="top">
-   <h6><a href="job-details.html">Senior UI/UX Designer</a></h6>
+   <h6><a href="job-details">{{i.jid.title}}</a></h6>
    <span><img src="assets/images/icon/calender2.svg" alt> 1 days ago</span>
    </div>
    <ul>
-   <li><img src="assets/images/icon/location.svg" alt>New-York, USA</li>
+   <li><img src="assets/images/icon/location.svg" alt>{{i.jid.loca}}</li>
    <li>
    <img src="assets/images/icon/arrow2.svg" alt>
-   <p><span class="title">Salary:</span> $60-$90 / <span class="time">Per Hour</span></p>
+   <p><span class="title">Salary:</span> ${{i.jid.min}}-${{i.jid.max}} / <span class="time">{{i.jid.type}}</span></p>
    </li>
    </ul>
    </div>
    </div>
    </td>
-   <td data-label="Apply Job">03/07/2022</td>
-   <td data-label="Company"><a class="view-btn" href="company-details.html">Tech.Bath Com... </a></td>
-   <td data-label="Status"><button class="eg-btn purple-btn">Viewed</button></td>
+   <td data-label="Apply Job">{{i.date}}</td>
+   <td data-label="Company"><a class="view-btn" href="company-details.html">{{i.cmid.cname}}</a></td>
+   <td data-label="Status"><button class="eg-btn purple-btn">{{i.status}}</button></td>
    </tr>
+   {% endfor %}
+
+<!--    
    <tr>
    <td data-label="Job Title">
    <div class="company-info">
@@ -314,25 +320,53 @@
    <td data-label="Apply Job">18/08/2022</td>
    <td data-label="Company"><a class="view-btn" href="company-details.html">Bistro.Tech Group</a></td>
    <td data-label="Status"><button class="eg-btn green-btn">Success</button></td>
-   </tr>
+   </tr> -->
    </tbody>
    </table>
-   <div class="pagination-table-info">
-   <div class="table-info">
-   <span>06 Results Showing In 20 Jobs</span>
-   </div>
-   <div class="pagination-area">
-   <nav aria-label="...">
-   <ul class="pagination">
-   <li class="page-item disabled"><a class="page-link" href="#" tabindex="-1"></a></li>
-   <li class="page-item active" aria-current="page"><a class="page-link" href="#">01</a></li>
-   <li class="page-item"><a class="page-link" href="#">02</a></li>
-   <li class="page-item"><a class="page-link" href="#">03</a></li>
-   <li class="page-item"><a class="page-link" href="#"></a></li>
-   </ul>
-   </nav>
-   </div>
-   </div>
+   <div class="grid md:grid-cols-12 grid-cols-1 mt-8">
+    <div class="md:col-span-12 text-center">
+        <nav aria-label="Page navigation example">
+            <ul class="inline-flex items-center -space-x-px">
+                {% if data.has_previous %}
+                <li>
+                    <a href="?page={{data.previous_page_number}}" class="w-[40px] h-[40px] inline-flex justify-center items-center text-slate-400 bg-white dark:bg-slate-900 rounded-s-3xl hover:text-white border border-gray-100 dark:border-gray-800 hover:border-emerald-600 dark:hover:border-emerald-600 hover:bg-emerald-600 dark:hover:bg-emerald-600">
+                        <i class="uil uil-angle-left text-[20px] rtl:rotate-180 rtl:-mt-1"></i>
+                    </a>
+                </li>
+                {% endif %}
+
+
+                {% for i in data.paginator.page_range %}
+
+
+                {% if data.number == i %}
+                
+                <li>
+                    <a href="#" aria-current="page" class="z-10 w-[40px] h-[40px] inline-flex justify-center items-center text-white bg-emerald-600 border border-emerald-600">{{i}}</a>
+                </li>
+                {% else %}
+                
+                <li>
+                    <a href="#" class="w-[40px] h-[40px] inline-flex justify-center items-center text-slate-400 hover:text-white bg-white dark:bg-slate-900 border border-gray-100 dark:border-gray-800 hover:border-emerald-600 dark:hover:border-emerald-600 hover:bg-emerald-600 dark:hover:bg-emerald-600">{{i}}</a>
+                </li>
+                {% endif %}
+
+
+                {% endfor %}
+
+                
+
+                {% if data.has_next %}
+                <li>
+                    <a href="?page={{data.next_page_number}}" class="w-[40px] h-[40px] inline-flex justify-center items-center text-slate-400 bg-white dark:bg-slate-900 rounded-e-3xl hover:text-white border border-gray-100 dark:border-gray-800 hover:border-emerald-600 dark:hover:border-emerald-600 hover:bg-emerald-600 dark:hover:bg-emerald-600">
+                        <i class="uil uil-angle-right text-[20px] rtl:rotate-180 rtl:-mt-1"></i>
+                    </a>
+                </li>
+                {% endif %}
+            </ul>
+        </nav>
+    </div><!--end col-->
+</div>
    </div>
    </div>
    </div>
