@@ -15,6 +15,9 @@ from .utils import render_to_pdf
 from django.template.loader import get_template 
 
 
+from django.template.loader import render_to_string
+from django.core.mail import EmailMessage
+
 
 
 # --------------MAIN PART----------------- #
@@ -150,7 +153,7 @@ def job_apply(request):
 
             jobs=post_job_tb.objects.get(id=jobid)
 
-            # for mail function
+            #FOR MAIL FUNCTION DATA FETCHING
             user2=applicant_register_tb.objects.filter(id=userid)
             for i in user2:
                 uname=i.uname
@@ -158,14 +161,15 @@ def job_apply(request):
 
             
 
-            # for mail function
+            #FOR MAIL FUNCTION DATA FETCHING
             jobs2=post_job_tb.objects.filter(id=jobid)
             for x in jobs2:
                 title=x.title
                 comna=x.cid.cname
 
 
-            # for alredy checking
+
+            #FOR ALREDY APPLIED CHECKING
             check=apply_job_tb.objects.filter(jid=jobid,uid=userid)
             if check:
                 print("faiedddddddddddddddddddddddddddddddd")
@@ -177,12 +181,41 @@ def job_apply(request):
                 add.save()
 
 
-                # send mail
-                subject = 'HireWIse Applied'
-                message = f'Hi {uname} HireWIse apllication for, {title} ,{comna} Applied Successfully'
-                email_from = settings.EMAIL_HOST_USER 
-                recipient_list = [umail, ] 
-                send_mail( subject, message, email_from, recipient_list )
+                # OLD EMAIL FUNCTION
+
+                # subject = 'HireWIse Applied'
+                # message = f'Hi {uname} HireWIse apllication for, {title} ,{comna} Applied Successfully'
+                # email_from = settings.EMAIL_HOST_USER 
+                # recipient_list = [umail, ] 
+                # send_mail( subject, message, email_from, recipient_list )
+
+
+
+
+
+                #NEW EMAIL FUNCTION WITH TEMPLATE
+
+                mydict = {'username' : uname,
+                          'title' : title,
+                           'comna' : comna 
+                           }
+
+
+
+                html_template = 'email_templates/applied_email_temp.html'
+                html_message = render_to_string(html_template,context=mydict)
+                subject = 'Applied Successfully'
+                email_from = settings.EMAIL_HOST_USER
+                recipient_list = [umail]
+                message = EmailMessage(subject, html_message,email_from,recipient_list)
+
+
+                message.content_subtype = 'html'
+                message.send()
+
+
+
+
 
                 print("successfullllllllllllllllllllllllllllllllllll")
                 return JsonResponse({'message1': 'successful'})
@@ -762,6 +795,8 @@ def setinterview(request):
                 uname=x.uid.uname
 
 
+
+
             if lin=='online':
 
                 subject = 'Interview Invitation'
@@ -771,11 +806,21 @@ def setinterview(request):
                 send_mail( subject, message, email_from, recipient_list ) 
 
             else:
+                mydict = {'username' : uname}
+
+
+
+                #SEND INTERVIEW INVITRATION THROUGH EMAIL
+                html_template = 'email_templates/interview_email_template.html'
+                html_message = render_to_string(html_template,context=mydict)
                 subject = 'Interview Invitation'
-                message = f'Hi offline'
-                email_from = settings.EMAIL_HOST_USER 
-                recipient_list = [umail, ] 
-                send_mail( subject, message, email_from, recipient_list ) 
+                email_from = settings.EMAIL_HOST_USER
+                recipient_list = [umail]
+                message = EmailMessage(subject, html_message,email_from,recipient_list)
+
+
+                message.content_subtype = 'html'
+                message.send()
 
 
             data2=apply_job_tb.objects.filter(id=jobid).update(status="setinterview")
