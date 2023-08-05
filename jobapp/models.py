@@ -35,6 +35,9 @@ class company_register_tb1(models.Model):
     working = models.CharField(max_length=255)
     description = models.CharField(max_length=255)
 
+    def __str__(self):
+        return self.cname
+
 
 
 class post_job_tb(models.Model):
@@ -55,6 +58,7 @@ class post_job_tb(models.Model):
     postdate=models.CharField(max_length=225)
     lastdata=models.DateField()
     status=models.CharField(max_length=255,default="active")
+
 
     
 
@@ -82,6 +86,10 @@ class applicant_register_tb(models.Model):
     github=models.CharField(max_length=225)
     dribbble=models.CharField(max_length=225)
     pinterest=models.CharField(max_length=225)
+
+
+    def __str__(self):
+        return self.name
     
 
 
