@@ -239,7 +239,46 @@ def services(request):
     return render(request,"main/services.html")
 
 def contact(request):
-    return render(request,"main/contact.html")
+    if request.method=='POST':
+        name=request.POST["name"]
+        email=request.POST["email"]
+        question=request.POST["subject"]
+        msg =request.POST["comments"]
+
+
+        #SEND INTERVIEW INVITRATION THROUGH EMAIL
+
+        mydict = {'name' : name,
+                  'email' : email,
+                  'question' : question,
+                  'msg' : msg}
+
+
+        html_template = 'email_templates/contactform_email_temp.html'
+        html_message = render_to_string(html_template,context=mydict)
+        subject = 'contact form'
+        email_from = settings.EMAIL_HOST_USER
+        recipient_list = [email]
+        message = EmailMessage(subject, html_message,email_from,recipient_list)
+        message.content_subtype = 'html'
+        message.send()
+
+
+        html_template1 = 'email_templates/company_contactform_email_temp.html'
+        html_message1 = render_to_string(html_template1,context=mydict)
+        subject = 'contact form'
+        email_from = settings.EMAIL_HOST_USER
+        recipient_list = [settings.EMAIL_HOST_USER, ]
+        message = EmailMessage(subject, html_message1,email_from,recipient_list)
+
+
+        message.content_subtype = 'html'
+        message.send()
+
+        return render(request,"main/contact.html")
+
+    else:
+        return render(request,"main/contact.html")
 
 
 
