@@ -21,8 +21,21 @@
     <div class="tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">
     <form action="/register/" method="post" enctype="multipart/form-data">{% csrf_token %}
     <div class="row">
-        <h5 style="color:red;text-align:center;">{{error}}</h5>
+        <!-- <h5 style="color:red;text-align:center;">{{error}}</h5> -->
         <h5 style="color:red;text-align:center;">{{error2}}</h5>
+
+        {% if error%}
+        <div class="alert alert-warning alert-dismissible fade show" role="alert">
+            <strong>{{error}}</strong>
+        </div>
+        {% endif %}
+        
+        {% if error2%}
+        <div class="alert alert-warning alert-dismissible fade show" role="alert">
+            <strong>{{error}}</strong>
+        </div>
+        {% endif %}
+
     <div class="col-md-6">
     <div class="form-inner mb-25">
     <label for="firstname1">First Name<span style="color: red;">*</span></label>

@@ -296,12 +296,14 @@ def login(request):
         lpassword=request.POST['password']
         check=applicant_register_tb.objects.filter(email=lemail,password=lpassword)
         check2=company_register_tb1.objects.filter(email=lemail,password=lpassword)
+        
         if check:
             for x in check:
                 request.session["id"]=x.id
                 request.session["uname"]=x.uname
                 usid=x.id
                 query1=applicant_register_tb.objects.filter(id=usid)
+                
             return render(request,"main/candidate.html",{"data":query1})
         elif check2:
             for x in check2:
@@ -310,11 +312,18 @@ def login(request):
                 mid=x.id
                 print(mid)
                 query1=company_register_tb1.objects.filter(id=mid)
+                
             return render(request,"company/myprofile.html",{"data1":query1})
-        else:            
-            return render(request,"main/login.html",{"erorr":"Unregistered please register"})
+        else:
+            
+            return render(request,"main/login.html",{"erorr1":"Unregistered please register!"})
     else:
+        
         return render(request,"main/login.html")
+    
+
+
+
     
 def logout(request):
 

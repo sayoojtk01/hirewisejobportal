@@ -4,8 +4,12 @@
 <div class="login-area pt-120 mb-120">
     <div class="container">
     <div class="row">
-        <h5 style="color:red;text-align:center;">{{error}}</h5>
-        <h5 style="color:red;text-align:center;">{{success}}</h5>
+        <!-- <h5 style="color:red;text-align:center;">{{erorr1}}</h5> -->
+        <!-- <h5 style="color:red;text-align:center;">{{success}}</h5> -->
+
+
+        
+
     <div class="col-lg-12">
     <div class="form-wrapper">
     <div class="form-title">
@@ -13,6 +17,20 @@
     <span></span>
     </div>
     <form action="/login/"method="post" enctype="multipart/form-data">{% csrf_token %}
+
+        {% if erorr1%}
+        <div class="alert alert-warning alert-dismissible fade show" role="alert">
+            <strong>{{erorr1}}</strong>
+        </div>
+        {% endif %}
+
+        {% if success %}
+        <div class="alert alert-primary" role="alert">
+            {{success}}
+          </div>
+        {% endif %}
+
+
     <div class="row">
     <div class="col-lg-12">
     <div class="form-inner mb-25">
