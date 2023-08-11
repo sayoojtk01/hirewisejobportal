@@ -16,7 +16,7 @@ urlpatterns = [
     path('contact/', views.contact),
     path('jobsearch/', views.jobsearch),
     path('jobjobsearch/', views.jobjobsearch),
-    
+    path('company-view/', views.companyview),
 
 
     # ----------------All Action---------------

@@ -75,6 +75,13 @@ def job_cat(request):
     return render(request,"main/job-categories.html")
 
 
+def companyview(request):
+    cid=request.GET['cid']
+    query1=company_register_tb1.objects.filter(id=cid)
+    return render(request,"main/company_view.html",{'data':query1})
+
+
+
 
 def job_grid(request):
     query1=post_job_tb.objects.filter(status="active").order_by('-id')
@@ -142,7 +149,7 @@ def job_apply(request):
         # if request.method=="POST":
             userid=request.session['id']
             jobid=request.GET['jobid']
-            print("iddddddddddddddd",jobid)
+            
             data=post_job_tb.objects.filter(id=jobid)
             for x in data:
                 cmid=x.cid.id
@@ -172,7 +179,7 @@ def job_apply(request):
             #FOR ALREDY APPLIED CHECKING
             check=apply_job_tb.objects.filter(jid=jobid,uid=userid)
             if check:
-                print("faiedddddddddddddddddddddddddddddddd")
+                
                 return JsonResponse({'message1': 'field'})
 
             else:
@@ -214,10 +221,6 @@ def job_apply(request):
                 message.send()
 
 
-
-
-
-                print("successfullllllllllllllllllllllllllllllllllll")
                 return JsonResponse({'message1': 'successful'})
             
 
@@ -833,6 +836,12 @@ def setinterview(request):
                 umail=x.uid.email
                 uname=x.uid.uname
 
+            comny=company_register_tb1.objects.filter(id=comid)
+            for x in comny:
+                cname=x.cname
+                email=x.email
+
+
 
 
 
@@ -845,7 +854,17 @@ def setinterview(request):
                 send_mail( subject, message, email_from, recipient_list ) 
 
             else:
-                mydict = {'username' : uname}
+                mydict = {'username' : uname,
+                          'cname':cname,
+                          'email':email,
+                          'time':time,
+                          'date':date,
+                          'location':location,
+                          'type':lin,
+                          'msg':msg,
+                          'require':require
+
+                          }
 
 
 
