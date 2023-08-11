@@ -8,6 +8,7 @@ from django.conf import settings
 from django.utils import timezone
 from django.core.paginator import Paginator
 from django.http import JsonResponse
+from django.contrib.auth.hashers import make_password , check_password
 
 
 from django.views.generic import View
@@ -294,26 +295,51 @@ def login(request):
     if request.method=="POST":
         lemail=request.POST['email']
         lpassword=request.POST['password']
-        check=applicant_register_tb.objects.filter(email=lemail,password=lpassword)
-        check2=company_register_tb1.objects.filter(email=lemail,password=lpassword)
-        
+
+        #CHECK THE MAIL IN BOTH TABLE APPLICANT AND COMPANY
+        check=applicant_register_tb.objects.filter(email=lemail)
+        check2=company_register_tb1.objects.filter(email=lemail)
+
+        #DATA IN APPLICANT TABLE
         if check:
-            for x in check:
-                request.session["id"]=x.id
-                request.session["uname"]=x.uname
-                usid=x.id
-                query1=applicant_register_tb.objects.filter(id=usid)
+
+            #GET THE DATA FROM THE USER TABLE
+            add=applicant_register_tb.objects.get(email=lemail)
+
+            #CHECK THE HASHED PASSWORD 
+            if check_password(lpassword,add.password):
                 
-            return render(request,"main/candidate.html",{"data":query1})
+                #CREATE THE SESSSIONS
+                request.session["id"]=add.id
+                request.session["uname"]=add.uname
+                usid=add.id
+                query1=applicant_register_tb.objects.filter(id=usid)
+                    
+                return render(request,"main/candidate.html",{"data":query1})
+            else:
+                return render(request,"main/login.html",{"erorr1":"Password Dosen't Match!"})
+            
+        
+        #DATA IN COMPANY TABLE
         elif check2:
-            for x in check2:
-                request.session["mid"]=x.id
-                request.session["cname"]=x.cname
-                mid=x.id
+
+            #GET THE DATA FROM THE COMPANY TABLE
+            add2=company_register_tb1.objects.get(email=lemail)
+
+            #CHECK THE HASHED PASSWORD 
+            if check_password(lpassword,add2.password):
+
+                #CREATE THE SESSSIONS
+                request.session["mid"]=add2.id
+                request.session["cname"]=add2.cname
+                mid=add2.id
                 print(mid)
                 query1=company_register_tb1.objects.filter(id=mid)
-                
-            return render(request,"company/myprofile.html",{"data1":query1})
+                return render(request,"company/myprofile.html",{"data1":query1})
+            
+            else:
+                return render(request,"main/login.html",{"erorr1":"Password Dosen't Match!"})
+            
         else:
             
             return render(request,"main/login.html",{"erorr1":"Unregistered please register!"})
@@ -342,8 +368,25 @@ def logout(request):
     
     
 
+
+
+
+
+
+
+
+
+
     
 # ------------------CANDIDATE----------------------
+
+
+
+
+
+
+
+
 
 
 def register(request):
@@ -365,6 +408,7 @@ def register(request):
             elif check2:
                 return render(request,"main/signup.html",{"error2":"User Name already exist ! Try Another"})
             else:
+                password=make_password(password)
                 add=applicant_register_tb(name=fname,lname=lname,uname=uname,email=email,password=password,
                                           profile=profile,cv=cv)
                 add.save()
@@ -507,6 +551,7 @@ def companyregister(request):
             elif check2:
                 return render(request,"main/signup.html",{"error2":"User Name already exist ! Try Another"})
             else:
+                password=make_password(password)
                 add=company_register_tb1(name=fname,lname=lname,uname=uname,cname=cname,ctype=ctype,email=email,password=password,
                                         logo=logo,cover=cover)
                 add.save()
@@ -692,15 +737,19 @@ def passwordchange(request):
             oldpsd=request.POST['oldpassword']
             psd=request.POST['newpassword']
             cpsd=request.POST['confirmpassword']
-            check=company_register_tb1.objects.filter(password=oldpsd)
-            if psd == cpsd :
-                if check:
+            check=company_register_tb1.objects.get(id=mid)
+            if check_password(oldpsd,check.password):
+                if psd == cpsd :
+                    psd=make_password(psd)
+                    print(psd)
                     add=company_register_tb1.objects.filter(id=mid).update(password=psd)
-                    return HttpResponseRedirect(request,"company/com_settings.html",{"error":"Change Password Successfully"})
+                    return render(request,"company/com_settings.html",{"success":"Change Password Successfully"})
                 else:
-                    return render(request,"company/com_settings.html",{"error":"Old Password Is Not Match!"})
+                    return render(request,"company/com_settings.html",{"error":"Passwords Are Not Match!"})
             else:
-                return render(request,"company/com_settings.html",{"error":"Passwords Are Not Match!"})
+                return render(request,"company/com_settings.html",{"error":"Old Password Is Not Match!!"})
+            
+
     else:
         return HttpResponseRedirect('/login/')
     
