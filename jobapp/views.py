@@ -27,7 +27,20 @@ from django.core.mail import EmailMessage
 
 def index(request):
     
+
+    #FETCH DATA FROM IN JOB TABLE
+    query2=post_job_tb.objects.filter(status="active").order_by('-id')
+    for i in query2:
+        jid=i.id
+        #CHECK THE JOB LASTDATE IS OVER 
+        if i.lastdata < timezone.now().date():
+
+            #DISABLE THE THE OVER DATE JOBES
+            changedate=post_job_tb.objects.filter(id=jid).update(status="deactive")
+
+    #FETCH THE NEW DATA
     query1=post_job_tb.objects.filter(status="active").order_by('-id')
+
     paginator=Paginator(query1,6)
     page_num=request.GET.get('page',1)
 
@@ -85,15 +98,31 @@ def companyview(request):
 
 
 def job_grid(request):
+    #FETCH THE DATA FROM JOB POST TABLE FOR CHECK THE DATE
     query1=post_job_tb.objects.filter(status="active").order_by('-id')
+    for i in query1:
+        jid=i.id
+
+        #CHECK THE CONDITION FOR DATE IS OVER OR NOT
+        if i.lastdata < timezone.now().date():
+
+            #DISABLE THE DATE OVER JOBS
+            query1=post_job_tb.objects.filter(id=jid).update(status="deactive")
+            
+    
+    #FETCH THE NEW JOB DATAS
+    query2=post_job_tb.objects.filter(status="active").order_by('-id')
+        
+            
+
 
 
     #pagination in django
-    paginator=Paginator(query1,21)
+    paginator=Paginator(query2,21)
     page_num=request.GET.get('page',1)
-    query1=paginator.page(page_num)
+    query2=paginator.page(page_num)
 
-    return render(request,"main/job-grid-four.html",{"data":query1})
+    return render(request,"main/job-grid-four.html",{"data":query2})
 
 
 
@@ -737,11 +766,18 @@ def passwordchange(request):
             oldpsd=request.POST['oldpassword']
             psd=request.POST['newpassword']
             cpsd=request.POST['confirmpassword']
+
+            #GET DATA FROM REGISTER TABLE
             check=company_register_tb1.objects.get(id=mid)
+
+            #CHEK THE HASHED PASSWORD THROUGH 
             if check_password(oldpsd,check.password):
                 if psd == cpsd :
+
+                    #MAKE THE PASSWORD TO ENCRYPTED
                     psd=make_password(psd)
-                    print(psd)
+
+                    #ADD NEW HASHED PASSWORD
                     add=company_register_tb1.objects.filter(id=mid).update(password=psd)
                     return render(request,"company/com_settings.html",{"success":"Change Password Successfully"})
                 else:
@@ -754,6 +790,8 @@ def passwordchange(request):
         return HttpResponseRedirect('/login/')
     
 
+
+#COM DELETE BUT NOT NEED
 def comdelete(request):
     if request.session.has_key('mid'):
         mid=request.session['mid']
@@ -765,7 +803,7 @@ def comdelete(request):
     else:
         return HttpResponseRedirect('/login/')
     
-
+#JOB DEACTIVATE
 def job_del(request):
     if request.session.has_key('mid'):
         jobid=request.GET['jobid']
@@ -774,7 +812,8 @@ def job_del(request):
     else:
         return HttpResponseRedirect('/login/')
     
-
+    
+#JOB DEACTIVATE FROM COMPANY JOBLIST TABLE
 def job_del_from_jolist(request):
     if request.session.has_key('mid'):
         jobid=request.GET['jobid']
@@ -784,6 +823,7 @@ def job_del_from_jolist(request):
         return HttpResponseRedirect('/login/')
 
 
+#FOR SHORTLISTING THE CANDIDATES
 def shortlisting(request):
     if request.session.has_key('mid'):
         mid=request.session['mid']
@@ -797,6 +837,8 @@ def shortlisting(request):
         #     umail=x.email
         #     uname=x.uname
 
+
+        #FOR SHORTLIST MAIL FUNCTION
         jobs=apply_job_tb.objects.filter(id=jobid)
         for x in jobs:
             title=x.jid.title
@@ -804,6 +846,8 @@ def shortlisting(request):
             umail=x.uid.email
             uname=x.uid.uname
 
+
+        #MAIL SENDING
         subject = 'Shortlisted'
         message = f'Hi {uname} HireWIse apllication for, {title} ,{com} Was Shortlisted'
         email_from = settings.EMAIL_HOST_USER 
@@ -1030,3 +1074,6 @@ class GeneratePdf(View):
             response['Content-Disposition'] = content
             return response
         return HttpResponse("Page Not Found")
+
+
+
