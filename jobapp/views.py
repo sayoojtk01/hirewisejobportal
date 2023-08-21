@@ -20,6 +20,8 @@ from django.template.loader import render_to_string
 from django.core.mail import EmailMessage
 
 
+import random,math
+
 
 # --------------MAIN PART----------------- #
 
@@ -108,7 +110,7 @@ def job_grid(request):
 
             #DISABLE THE DATE OVER JOBS
             query1=post_job_tb.objects.filter(id=jid).update(status="deactive")
-            
+
     
     #FETCH THE NEW JOB DATAS
     query2=post_job_tb.objects.filter(status="active").order_by('-id')
@@ -405,7 +407,6 @@ def logout(request):
 
 
 
-
     
 # ------------------CANDIDATE----------------------
 
@@ -441,12 +442,14 @@ def register(request):
                 add=applicant_register_tb(name=fname,lname=lname,uname=uname,email=email,password=password,
                                           profile=profile,cv=cv)
                 add.save()
+
                 return render(request,"main/login.html",{"success":"Registered Successfully Please Login !"})
         else:
             return render(request,"main/signup.html",{"error":"Passwords doesn't match !"})
     else:
         return render(request,"main/signup.html")
     
+
 
 
 def candidate(request):

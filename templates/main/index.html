@@ -1,12 +1,6 @@
 ﻿{% extends 'main/base.html' %}
  {% block content %}
 
-
-
-
-
- 
-
         <!-- Start -->
         <section class="py-36 md:h-screen h-auto items-center flex relative overflow-hidden" id="home">
             <div class="container relative">
@@ -132,6 +126,7 @@
                 {% else %}	
                 <p> no data </p>						
                 {% endif %}	
+                
 
                 
 
@@ -143,7 +138,7 @@
             </div><!--end grid-->
 
             <div class="grid md:grid-cols-12 grid-cols-1 mt-8">
-                <div class="md:col-span-12 text-center">
+                <div class="md:col-span-12 text-center"  >
                     <nav aria-label="Page navigation example">
                         <ul class="inline-flex items-center -space-x-px">
                             {% if data.has_previous %}
